@@ -19,6 +19,10 @@ public class ClientPlayer : NetworkBehaviour
     private float currentTime; // amount of time in seconds that the player has been alive for
     [SyncVar][HideInInspector] private float longestTime; // amount of time in seconds that the player has been alive for the longest
 
+    Item item;
+
+    public Item Item { get { return item; } set { item = value; } }
+
     public float LongestTime { get { return longestTime; } }
 
     public string Username { get { return username; } }
