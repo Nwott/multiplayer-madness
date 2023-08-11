@@ -26,7 +26,7 @@ public class ClientPlayer : NetworkBehaviour
 
         if(IsOwner)
         {
-            Initialize();
+            Initialize(PlayerPrefs.GetString("Username"));
         }
     }
 
@@ -60,10 +60,8 @@ public class ClientPlayer : NetworkBehaviour
 
     // what happens when the player joins the server
     [ServerRpc]
-    private void Initialize()
+    private void Initialize(string username)
     {
-        username = PlayerPrefs.GetString("Username");
-
         // print username to console
         string message = username + " has joined the game.";
         Debug.Log(message);
