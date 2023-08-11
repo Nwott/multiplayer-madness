@@ -12,12 +12,16 @@ public class Cannon : NetworkBehaviour
     [Header("Settings")]
     [SerializeField] private float waitTime = 2f; // time between barrel active and shoot
     [SerializeField] private float cycleInterval = 5f; // time between shoot cycles
+    [SerializeField] private float afterShootTime = 1f; // time between shoot and barrel inactive
 
     private float waitTimer;
     private bool startWaitTimer;
 
     private float cycleTimer;
     private bool startCycleTimer = true;
+
+    private float afterShootTimer;
+    private bool startAfterShootTimer;
 
     private List<BarrelData> barrelData = new();
 
@@ -34,6 +38,11 @@ public class Cannon : NetworkBehaviour
         {
             CycleTimer();
         }
+
+        if(startAfterShootTimer)
+        {
+            AfterShootTimer();
+        }
     }
 
     private void CycleTimer()
@@ -44,7 +53,6 @@ public class Cannon : NetworkBehaviour
         {
             cycleTimer = 0;
             startCycleTimer = false;
-            startWaitTimer = true;
             Wait();
         }
     }
@@ -57,15 +65,33 @@ public class Cannon : NetworkBehaviour
         {
             waitTimer = 0;
             startWaitTimer = false;
+            Shoot();
+        }
+    }
+
+    private void AfterShootTimer()
+    {
+        afterShootTimer += Time.deltaTime;
+
+        if(afterShootTimer > afterShootTime)
+        {
+            afterShootTimer = 0;
+            startAfterShootTimer = false;
+            AfterShoot();
         }
     }
 
     // enables barrels and points them towards player
     private void Wait()
     {
-        for(int i = 0; i < barrelData.Count; i++)
+        startWaitTimer = true;
+        startAfterShootTimer = true;
+
+        // rotates barrels towards players
+        for (int i = 0; i < barrelData.Count; i++)
         {
             barrelData[i].Barrel.SetActive(true);
+            RefreshBarrelActive(barrelData[i].Barrel, true);
 
             Vector3 target = barrelData[i].Player.gameObject.transform.position;
 
@@ -75,7 +101,18 @@ public class Cannon : NetworkBehaviour
 
     private void Shoot()
     {
+        startCycleTimer = true;
 
+        print("Cannons shot.");
+    }
+
+    private void AfterShoot()
+    {
+        for(int i = 0; i < barrelData.Count; i++)
+        {
+            barrelData[i].Barrel.SetActive(false);
+            RefreshBarrelActive(barrelData[i].Barrel, false);
+        }
     }
 
     public void AddBarrel(ClientPlayer player)
@@ -85,6 +122,13 @@ public class Cannon : NetworkBehaviour
             GameObject barrel = GameManager.Instance.SpawnObject(cannonBarrel, barrelSpawnpoint.transform.position, Quaternion.identity, gameObject.transform);
             barrelData.Add(new BarrelData(barrel, player));
             barrel.SetActive(false);
+            RefreshBarrelActive(barrel, false);
         }
+    }
+
+    [ObserversRpc]
+    private void RefreshBarrelActive(GameObject barrel, bool active)
+    {
+        barrel.SetActive(active);
     }
 }

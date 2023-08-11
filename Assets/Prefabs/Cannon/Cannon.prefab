@@ -52,10 +52,10 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 3572552035922302386}
   cannonBarrel: {fileID: 3250681477134792191, guid: 010b61abb9efbd849b23837e5c0e318c,
     type: 3}
-  center: {fileID: 5051771261758746263}
   barrelSpawnpoint: {fileID: 5051771261758746263}
-  waitTime: 1
-  cycleInterval: 5
+  waitTime: 2
+  cycleInterval: 7
+  afterShootTime: 3
 --- !u!114 &3572552035922302386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 1
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
