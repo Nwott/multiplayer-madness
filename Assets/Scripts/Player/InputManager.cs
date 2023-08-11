@@ -37,7 +37,7 @@ public class InputManager : NetworkBehaviour
     {
         if (IsOwner)
         {
-            playerController.receiveInput(hInput);
+            playerController.ReceiveInputs(hInput);
         }
     }
 

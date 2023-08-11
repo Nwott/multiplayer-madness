@@ -10,11 +10,11 @@ public class ClientPlayer : NetworkBehaviour
     [Header("Settings")]
     [SerializeField] int maxHealth = 100;
 
-    [SyncVar] private string username;
-    [SyncVar] private int health;
+    [SyncVar][HideInInspector] private string username;
+    [SyncVar][HideInInspector] private int health;
 
     private float currentTime; // amount of time in seconds that the player has been alive for
-    [SyncVar] private float longestTime; // amount of time in seconds that the player has been alive for the longest
+    [SyncVar][HideInInspector] private float longestTime; // amount of time in seconds that the player has been alive for the longest
 
     public float LongestTime { get { return longestTime; } }
 
