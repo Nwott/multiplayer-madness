@@ -11,7 +11,7 @@ public class ClientPlayer : NetworkBehaviour
     [SyncVar] private int health;
 
     private float currentTime; // amount of time in seconds that the player has been alive for
-    private float longestTime; // amount of time in seconds that the player has been alive for the longest
+    [SyncVar] private float longestTime; // amount of time in seconds that the player has been alive for the longest
 
     public string Username { get { return username; } }
 
@@ -23,6 +23,36 @@ public class ClientPlayer : NetworkBehaviour
         {
             Initialize();
         }
+    }
+
+    private void Update()
+    {
+        if(IsOwner)
+        {
+            Timer();
+
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                Death();
+            }
+        }
+
+        Debug.Log(username + ": " + longestTime);
+    }
+
+    private void Timer()
+    {
+        currentTime += Time.deltaTime;
+
+        if(currentTime > longestTime)
+        {
+            SetLongestTime(currentTime);
+        }
+    }
+
+    private void Death()
+    {
+        currentTime = 0;
     }
 
     // what happens when the player joins the server
@@ -48,5 +78,14 @@ public class ClientPlayer : NetworkBehaviour
     public void ChangeHealth(int change)
     {
         health += change;
+    }
+
+    [ServerRpc]
+    public void SetLongestTime(float time)
+    {
+        if(time > longestTime)
+        {
+            longestTime = time;
+        }
     }
 }
