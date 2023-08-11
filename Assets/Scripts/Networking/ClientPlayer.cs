@@ -7,6 +7,9 @@ using FishNet.Connection;
 
 public class ClientPlayer : NetworkBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] int maxHealth = 100;
+
     [SyncVar] private string username;
     [SyncVar] private int health;
 
@@ -68,6 +71,8 @@ public class ClientPlayer : NetworkBehaviour
 
         // add player to players list in GameManager
         GameManager.Instance.players.Add(this);
+
+        health = maxHealth;
     }
 
     [ServerRpc]
