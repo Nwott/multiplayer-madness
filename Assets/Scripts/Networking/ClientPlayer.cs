@@ -54,7 +54,7 @@ public class ClientPlayer : NetworkBehaviour
 
         if (IsOwner)
         {
-            OnDisconnect(this);
+            OnDisconnect();
         }
     }
 
@@ -78,6 +78,7 @@ public class ClientPlayer : NetworkBehaviour
     private void Initialize(string username)
     {
         // print username to console
+        this.username = username;
         string message = username + " has joined the game.";
         Debug.Log(message);
         GameManager.Instance.DebugToClients(message);
@@ -105,9 +106,9 @@ public class ClientPlayer : NetworkBehaviour
         }
     }
 
-    [ServerRpc]
-    private void OnDisconnect(ClientPlayer client)
+    [ServerRpc(RequireOwnership = false)]
+    private void OnDisconnect()
     {
-        GameManager.Instance.players.Remove(client);
+        print("test");
     }
 }
