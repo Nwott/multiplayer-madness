@@ -11,6 +11,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private Button hostButton;
     [SerializeField] private Button connectButton;
     [SerializeField] private TMP_InputField ipInputField;
+    [SerializeField] private TMP_InputField usernameInputField;
 
     [Header("Settings")]
     [SerializeField] private ushort port = 7770;
@@ -19,6 +20,8 @@ public class NetworkMenu : MonoBehaviour
     {
         InstanceFinder.ServerManager.StartConnection();
         InstanceFinder.ClientManager.StartConnection();
+
+        Setup();
     }
 
     public void Connect()
@@ -31,5 +34,24 @@ public class NetworkMenu : MonoBehaviour
         }
 
         InstanceFinder.ClientManager.StartConnection(ip, port);
+
+        Setup();
+    }
+
+    private void Setup()
+    {
+        SetUsername();
+    }
+
+    private void SetUsername()
+    {
+        string username = usernameInputField.text;
+
+        if(username == "")
+        {
+            username = "Player" + Random.Range(1000, 9999);
+        }
+
+        PlayerPrefs.SetString("Username", username);
     }
 }
