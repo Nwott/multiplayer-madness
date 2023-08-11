@@ -47,6 +47,17 @@ public class ClientPlayer : NetworkBehaviour
         }
     }
 
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+
+        if (IsOwner)
+        {
+            OnDisconnect(this);
+        }
+    }
+
     private void Timer()
     {
         currentTime += Time.deltaTime;
@@ -90,5 +101,11 @@ public class ClientPlayer : NetworkBehaviour
         {
             longestTime = time;
         }
+    }
+
+    [ServerRpc]
+    private void OnDisconnect(ClientPlayer client)
+    {
+        GameManager.Instance.players.Remove(client);
     }
 }
