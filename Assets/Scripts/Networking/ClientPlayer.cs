@@ -13,6 +13,8 @@ public class ClientPlayer : NetworkBehaviour
     private float currentTime; // amount of time in seconds that the player has been alive for
     [SyncVar] private float longestTime; // amount of time in seconds that the player has been alive for the longest
 
+    public float LongestTime { get { return longestTime; } }
+
     public string Username { get { return username; } }
 
     public override void OnOwnershipClient(NetworkConnection prevOwner)
@@ -59,9 +61,13 @@ public class ClientPlayer : NetworkBehaviour
     {
         username = PlayerPrefs.GetString("Username");
 
+        // print username to console
         string message = username + " has joined the game.";
         Debug.Log(message);
         GameManager.Instance.DebugToClients(message);
+
+        // add player to players list in GameManager
+        GameManager.Instance.players.Add(this);
     }
 
     [ServerRpc]
