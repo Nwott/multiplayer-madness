@@ -7,8 +7,11 @@ using FishNet.Connection;
 
 public class ClientPlayer : NetworkBehaviour
 {
+    [Header("References")]
+    [SerializeField] private GameObject ownerObjects; // object to enable if the player is the owner of this object
+
     [Header("Settings")]
-    [SerializeField] int maxHealth = 100;
+    [SerializeField] private int maxHealth = 100;
 
     [SyncVar][HideInInspector] private string username;
     [SyncVar][HideInInspector] private int health;
@@ -27,6 +30,7 @@ public class ClientPlayer : NetworkBehaviour
         if(IsOwner)
         {
             Initialize(PlayerPrefs.GetString("Username"));
+            ownerObjects.SetActive(true);
         }
     }
 
