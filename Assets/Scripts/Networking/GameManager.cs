@@ -6,6 +6,9 @@ using FishNet.Object.Synchronizing;
 
 public class GameManager : NetworkBehaviour
 {
+    [Header("References")]
+    [SerializeField] private Cannon cannon;
+
     public static GameManager Instance { get; private set; }
 
     [SyncObject] public readonly SyncList<ClientPlayer> players = new();
@@ -39,11 +42,33 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    public void OnPlayerJoin(ClientPlayer player)
+    {
+        if (!IsServer) return;
+
+        cannon.AddBarrel(player);
+    }
+
     [ObserversRpc]
     public void DebugToClients(string message)
     {
         if (IsServer) return;
 
         Debug.Log(message);
+    }
+
+    public GameObject SpawnObject(GameObject obj, Vector3 position, Quaternion rotation, Transform parent)
+    {
+        GameObject go = Instantiate(obj, position, rotation, parent);
+        Spawn(go);
+
+        return go;
+    }
+
+    [ServerRpc]
+    public void SpawnObjectRPC(GameObject obj, Vector3 position, Quaternion rotation)
+    {
+        GameObject go = Instantiate(obj, position, rotation);
+        Spawn(go);
     }
 }

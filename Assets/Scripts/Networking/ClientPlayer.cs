@@ -7,8 +7,11 @@ using FishNet.Connection;
 
 public class ClientPlayer : NetworkBehaviour
 {
+    [Header("References")]
+    [SerializeField] private GameObject ownerObjects; // object to enable if the player is the owner of this object
+
     [Header("Settings")]
-    [SerializeField] int maxHealth = 100;
+    [SerializeField] private int maxHealth = 100;
 
     [SyncVar][HideInInspector] private string username;
     [SyncVar][HideInInspector] private int health;
@@ -27,6 +30,7 @@ public class ClientPlayer : NetworkBehaviour
         if(IsOwner)
         {
             Initialize(PlayerPrefs.GetString("Username"));
+            ownerObjects.SetActive(true);
         }
     }
 
@@ -40,6 +44,17 @@ public class ClientPlayer : NetworkBehaviour
             {
                 Death();
             }
+        }
+    }
+
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+
+        if (IsOwner)
+        {
+            OnDisconnect();
         }
     }
 
@@ -63,6 +78,7 @@ public class ClientPlayer : NetworkBehaviour
     private void Initialize(string username)
     {
         // print username to console
+        this.username = username;
         string message = username + " has joined the game.";
         Debug.Log(message);
         GameManager.Instance.DebugToClients(message);
@@ -71,6 +87,8 @@ public class ClientPlayer : NetworkBehaviour
         GameManager.Instance.players.Add(this);
 
         health = maxHealth;
+
+        GameManager.Instance.OnPlayerJoin(this);
     }
 
     [ServerRpc]
@@ -86,5 +104,11 @@ public class ClientPlayer : NetworkBehaviour
         {
             longestTime = time;
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void OnDisconnect()
+    {
+        print("test");
     }
 }
