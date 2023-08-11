@@ -10,7 +10,10 @@ public class NetworkMenu : MonoBehaviour
     [Header("References")]
     [SerializeField] private Button hostButton;
     [SerializeField] private Button connectButton;
-    [SerializeField] private InputField ipInputField;
+    [SerializeField] private TMP_InputField ipInputField;
+
+    [Header("Settings")]
+    [SerializeField] private ushort port = 7770;
 
     public void Host()
     {
@@ -20,6 +23,13 @@ public class NetworkMenu : MonoBehaviour
 
     public void Connect()
     {
-        InstanceFinder.ClientManager.StartConnection(ipInputField.text, )
+        string ip = ipInputField.text;
+
+        if(ip == "")
+        {
+            ip = "localhost";
+        }
+
+        InstanceFinder.ClientManager.StartConnection(ip, port);
     }
 }

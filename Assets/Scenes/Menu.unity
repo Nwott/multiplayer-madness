@@ -1053,7 +1053,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1424415145}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2046438484}
+        m_TargetAssemblyTypeName: NetworkMenu, Assembly-CSharp
+        m_MethodName: Connect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1424415145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,6 +1495,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1894567156}
   - component: {fileID: 1894567155}
+  - component: {fileID: 1894567157}
+  - component: {fileID: 1894567159}
+  - component: {fileID: 1894567158}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -1508,7 +1523,7 @@ MonoBehaviour:
   _objectPool: {fileID: 0}
   _persistence: 0
   _logging: {fileID: 0}
-  _spawnablePrefabs: {fileID: 0}
+  _spawnablePrefabs: {fileID: 11400000, guid: 18d749fe1d9aeb04c80015ee4bd95ba6, type: 2}
 --- !u!4 &1894567156
 Transform:
   m_ObjectHideFlags: 0
@@ -1524,6 +1539,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894567157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894567154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f48f002b825cbd45a19bd96d90f9edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unreliableMTU: 1023
+  _ipv4BindAddress: 
+  _ipv6BindAddress: 
+  _port: 7770
+  _maximumClients: 4095
+  _clientAddress: localhost
+  _timeout: 15
+--- !u!114 &1894567158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894567154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ce8bbb58966cb45a7140f32da5327a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enableGlobalScenes: 1
+  _startInOffline: 0
+  _offlineScene: Assets/Scenes/Menu.unity
+  _onlineScene: Assets/Scenes/William.unity
+  _replaceScenes: 0
+--- !u!114 &1894567159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894567154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerPrefab: {fileID: 5718341626411701019, guid: e0d9e82f7cf76414c8c69e85301fc70e,
+    type: 3}
+  _addToDefaultScene: 1
+  Spawns: []
 --- !u!1 &2046438482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,8 +1600,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2046438483}
+  - component: {fileID: 2046438484}
   m_Layer: 0
-  m_Name: User Interface
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1556,6 +1624,22 @@ Transform:
   - {fileID: 834891977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2046438484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046438482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5118dadffb55954591f88c0d033847d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostButton: {fileID: 2102046563}
+  connectButton: {fileID: 1424415144}
+  ipInputField: {fileID: 983526460}
+  port: 7770
 --- !u!1 &2102046561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,7 +1722,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2102046564}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2046438484}
+        m_TargetAssemblyTypeName: NetworkMenu, Assembly-CSharp
+        m_MethodName: Host
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2102046564
 MonoBehaviour:
   m_ObjectHideFlags: 0

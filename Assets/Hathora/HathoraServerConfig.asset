@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022a2291b89c82040a8bd048c0fdd537, type: 3}
+  m_Name: HathoraServerConfig
+  m_EditorClassIdentifier: 
+  _hathoraCoreOpts:
+    _appId: 
+    _existingAppsSelectedIndex: 0
+    _existingAppsWithDeploymentWrapper:
+    - _appId: app-76b81f3e-8c07-4c05-aa58-487ff2de168f
+      _createdAtWrapper: 08/11/2023 15:01:58
+      _createdBy: 
+      _deletedBy: 
+      _deletedAtWrapper: 
+      _orgId: auth0|64d64d1fbede2cb8d608212e
+      _appSecret: secret-8809dfe1-82cb-4eb4-9060-3c921b3b08dc
+      _appName: multiplayer-madness
+      _deploymentWrapper:
+        _planName: 0
+        _transportType: 0
+        _roomsPerProcess: 0
+        _additionalContainerPorts: []
+        _defaultContainerPortWrapper:
+          _transportType: 2
+          _portNumber: 7777
+        _createdAtWrapper: 
+        _createdBy: 
+        _requestedMemoryMB: 0
+        _requestedCPU: 0
+        _deploymentId: 0
+        _buildId: 0
+        _appId: 
+    _devAuthOpts:
+      _devAuthToken: 3DSrkMYGDRfNby9nl_om7TJvR_Gau1QaNp-NfOgjor7Kr
+      _forceNewToken: 0
+  _linuxHathoraAutoBuildOpts:
+    _serverBuildDirName: Build-Server
+    _serverBuildExeName: Hathora-Unity_LinuxServer.x86_64
+    _isDevBuild: 1
+    _cleanBuildDir: 1
+    _overwriteDockerfile: 1
+  _hathoraDeployOpts:
+    _roomsPerProcess: 1
+    _planNameSelectedIndex: 1
+    _containerPortWrapper:
+      _transportType: 2
+      _portNumber: 7777
+    _transportTypeSelectedIndex: 2
+    _envVars: []
+    _advancedDeployOpts:
+      _keepTempDir: 0
+      additionalTransportInfo1:
+        _transportType: 2
+        _portNumber: 7777
+        _transportNickname: 
+      additionalTransportInfo2:
+        _transportType: 2
+        _portNumber: 7777
+        _transportNickname: 
+  _hathoraLobbyRoomOpts:
+    _hathoraRegion: 1
+    _hathoraRegionSelectedIndexUi: 1
