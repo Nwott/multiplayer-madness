@@ -36,8 +36,6 @@ public class ClientPlayer : NetworkBehaviour
                 Death();
             }
         }
-
-        Debug.Log(username + ": " + longestTime);
     }
 
     private void Timer()
@@ -63,15 +61,7 @@ public class ClientPlayer : NetworkBehaviour
 
         string message = username + " has joined the game.";
         Debug.Log(message);
-        DebugToClients(message);
-    }
-
-    [ObserversRpc]
-    private void DebugToClients(string message)
-    {
-        if (IsServer) return;
-
-        Debug.Log(message);
+        GameManager.Instance.DebugToClients(message);
     }
 
     [ServerRpc]
