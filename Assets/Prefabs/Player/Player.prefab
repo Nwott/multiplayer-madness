@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4865602302702749260}
   - component: {fileID: 5718341626411701019}
+  - component: {fileID: 1044686190720096431}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -65,6 +66,22 @@ MonoBehaviour:
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 4121606829519803397
+--- !u!114 &1044686190720096431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782569849955040898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c731d8c0137d04ca901182ba2490f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5718341626411701019}
+  _networkObjectCache: {fileID: 0}
+  username: 
 --- !u!1 &8411214436937218821
 GameObject:
   m_ObjectHideFlags: 0
