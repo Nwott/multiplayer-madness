@@ -86,6 +86,8 @@ public class ClientPlayer : NetworkBehaviour
         GameManager.Instance.players.Add(this);
 
         health = maxHealth;
+
+        GameManager.Instance.OnPlayerJoin(this);
     }
 
     [ServerRpc]

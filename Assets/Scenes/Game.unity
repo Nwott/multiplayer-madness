@@ -307,6 +307,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 864052590}
   _networkObjectCache: {fileID: 864052590}
+  cannon: {fileID: 5569298646238179512}
 --- !u!4 &864052592
 Transform:
   m_ObjectHideFlags: 0
@@ -441,6 +442,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cannon
       objectReference: {fileID: 0}
+    - target: {fileID: 3572552035922302386, guid: 6bfabe2671e36e54c919738ab1b54440,
+        type: 3}
+      propertyPath: _isGlobal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572552035922302386, guid: 6bfabe2671e36e54c919738ab1b54440,
+        type: 3}
+      propertyPath: _scenePathHash
+      value: 774665742
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572552035922302386, guid: 6bfabe2671e36e54c919738ab1b54440,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3327164028766104193
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572552035922302386, guid: 6bfabe2671e36e54c919738ab1b54440,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 14.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572552035922302386, guid: 6bfabe2671e36e54c919738ab1b54440,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: -0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 5648248400835872948, guid: 6bfabe2671e36e54c919738ab1b54440,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -496,6 +522,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bfabe2671e36e54c919738ab1b54440, type: 3}
+--- !u!114 &5569298646238179512 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8101046567072119068, guid: 6bfabe2671e36e54c919738ab1b54440,
+    type: 3}
+  m_PrefabInstance: {fileID: 5569298646238179511}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b299de663f27ad948a01949eeae52d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
