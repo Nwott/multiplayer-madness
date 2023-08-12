@@ -73,6 +73,8 @@ public class ClientPlayer : NetworkBehaviour
         currentTime = 0;
     }
 
+
+
     // what happens when the player joins the server
     [ServerRpc]
     private void Initialize(string username)
