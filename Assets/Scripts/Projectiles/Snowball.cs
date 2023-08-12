@@ -22,6 +22,8 @@ public class Snowball : Projectile
     {
         if (!IsServer) return;
 
+        if (targetPlayer == null) return;
+
         if(Vector3.Distance(transform.position, TargetPlayer.transform.position) <= detectionRange)
         {
             // player in range
@@ -35,5 +37,17 @@ public class Snowball : Projectile
         // freeze player here...
         // create script called PlayerFreeze in Player script folder
         print("Player frozen.");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (targetPlayer != null) return;
+
+        if (other.CompareTag("Player"))
+        {
+            // player in range
+            FreezePlayer();
+            Despawn();
+        }
     }
 }

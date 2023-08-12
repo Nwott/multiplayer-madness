@@ -175,7 +175,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""id"": ""49738759-fea6-461a-af38-26e4ff79cb81"",
             ""actions"": [
                 {
-                    ""name"": ""Pick Up"",
+                    ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""def90c2e-9724-43c3-9b3e-d8b9fdfb27fb"",
                     ""expectedControlType"": ""Button"",
@@ -192,7 +192,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pick Up"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -207,7 +207,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Movement_Eat = m_Movement.FindAction("Eat", throwIfNotFound: true);
         // Interaction
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
-        m_Interaction_PickUp = m_Interaction.FindAction("Pick Up", throwIfNotFound: true);
+        m_Interaction_Interact = m_Interaction.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -323,12 +323,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     // Interaction
     private readonly InputActionMap m_Interaction;
     private List<IInteractionActions> m_InteractionActionsCallbackInterfaces = new List<IInteractionActions>();
-    private readonly InputAction m_Interaction_PickUp;
+    private readonly InputAction m_Interaction_Interact;
     public struct InteractionActions
     {
         private @Controls m_Wrapper;
         public InteractionActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @PickUp => m_Wrapper.m_Interaction_PickUp;
+        public InputAction @Interact => m_Wrapper.m_Interaction_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Interaction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -338,16 +338,16 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_InteractionActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_InteractionActionsCallbackInterfaces.Add(instance);
-            @PickUp.started += instance.OnPickUp;
-            @PickUp.performed += instance.OnPickUp;
-            @PickUp.canceled += instance.OnPickUp;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IInteractionActions instance)
         {
-            @PickUp.started -= instance.OnPickUp;
-            @PickUp.performed -= instance.OnPickUp;
-            @PickUp.canceled -= instance.OnPickUp;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IInteractionActions instance)
@@ -372,6 +372,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     }
     public interface IInteractionActions
     {
-        void OnPickUp(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

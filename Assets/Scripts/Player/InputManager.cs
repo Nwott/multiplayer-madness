@@ -23,7 +23,7 @@ public class InputManager : NetworkBehaviour
         interaction = controls.Interaction;
 
         movement.HMovement.performed += ctx => hInput = ctx.ReadValue<Vector2>();
-        interaction.PickUp.performed += _ => clientPlayer.PickUp();
+        interaction.Interact.performed += _ => clientPlayer.PickUp();
         //movement.Eat.performed += ctx => playerController.eat();
         
 
@@ -41,6 +41,18 @@ public class InputManager : NetworkBehaviour
         if (IsOwner)
         {
             playerController.ReceiveInputs(hInput);
+        }
+    }
+
+    private void Interact()
+    {
+        if(clientPlayer.Item == null)
+        {
+            clientPlayer.PickUp();
+        }
+        else
+        {
+            clientPlayer.UseItem();
         }
     }
 

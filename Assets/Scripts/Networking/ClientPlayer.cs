@@ -9,6 +9,8 @@ public class ClientPlayer : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject ownerObjects; // object to enable if the player is the owner of this object
+    [SerializeField] private GameObject holdObject;
+    [SerializeField] private GameObject firepoint;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -21,6 +23,8 @@ public class ClientPlayer : NetworkBehaviour
     [SyncVar][HideInInspector] private float longestTime; // amount of time in seconds that the player has been alive for the longest
 
     private Item item;
+
+    public Item Item { get { return item; } }
 
     public float LongestTime { get { return longestTime; } }
 
@@ -76,6 +80,7 @@ public class ClientPlayer : NetworkBehaviour
         currentTime = 0;
     }
 
+    // for picking up items
     public void PickUp()
     {
         if (item != null) return; // if player is already holding item, don't run code
@@ -85,9 +90,15 @@ public class ClientPlayer : NetworkBehaviour
         if(closestItem != null)
         {
             Item heldItem = closestItem.GetComponent<Item>();
-            GameManager.Instance.OnItemPickup(this, heldItem);
+            GameManager.Instance.OnItemPickup(this, heldItem, holdObject.transform.position);
             item = heldItem;
         }
+    }
+
+    public void UseItem()
+    {
+        item.Firepoint = firepoint.transform;
+        item.Perform();
     }
 
     private Collider GetClosestItem(Collider[] colliders)

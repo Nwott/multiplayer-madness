@@ -73,17 +73,22 @@ public class GameManager : NetworkBehaviour
     }
 
     [ServerRpc]
+    public void OnlySpawnObjectRPC(GameObject obj)
+    {
+        Spawn(obj);
+    }
+
+    [ServerRpc]
     public void DespawnObjectRPC(GameObject obj)
     {
         Despawn(obj);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void OnItemPickup(ClientPlayer player, Item item)
+    public void OnItemPickup(ClientPlayer player, Item item, Vector3 holdObject)
     {
+        item.transform.position = holdObject;
         item.transform.parent = player.transform;
-        item.gameObject.SetActive(false);
-        RefreshObjectActivity(item.gameObject, false);
         item.GiveOwnership(player.Owner);
     }
 
