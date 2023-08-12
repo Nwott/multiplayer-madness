@@ -77,4 +77,19 @@ public class GameManager : NetworkBehaviour
     {
         Despawn(obj);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void OnItemPickup(ClientPlayer player, Item item)
+    {
+        item.transform.parent = player.transform;
+        item.gameObject.SetActive(false);
+        RefreshObjectActivity(item.gameObject, false);
+        item.GiveOwnership(player.Owner);
+    }
+
+    [ObserversRpc]
+    public void RefreshObjectActivity(GameObject obj, bool active)
+    {
+        obj.SetActive(active);
+    }
 }

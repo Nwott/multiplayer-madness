@@ -160,6 +160,7 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 5718341626411701019}
   _networkObjectCache: {fileID: 5718341626411701019}
+  clientPlayer: {fileID: 3813397337611029621}
 --- !u!114 &9044952388557898230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +194,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5718341626411701019}
   ownerObjects: {fileID: 4070333815410439728}
   maxHealth: 100
+  itemDetectionRadius: 4
   username: 
   health: 0
   longestTime: 0

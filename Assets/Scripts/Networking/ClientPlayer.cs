@@ -12,12 +12,15 @@ public class ClientPlayer : NetworkBehaviour
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private float itemDetectionRadius = 4f;
 
     [SyncVar][HideInInspector] private string username;
     [SyncVar][HideInInspector] private int health;
 
     private float currentTime; // amount of time in seconds that the player has been alive for
     [SyncVar][HideInInspector] private float longestTime; // amount of time in seconds that the player has been alive for the longest
+
+    private Item item;
 
     public float LongestTime { get { return longestTime; } }
 
@@ -73,7 +76,47 @@ public class ClientPlayer : NetworkBehaviour
         currentTime = 0;
     }
 
+    public void PickUp()
+    {
+        if (item != null) return; // if player is already holding item, don't run code
 
+        Collider closestItem = GetClosestItem(Physics.OverlapSphere(transform.position, itemDetectionRadius));
+
+        if(closestItem != null)
+        {
+            Item heldItem = closestItem.GetComponent<Item>();
+            GameManager.Instance.OnItemPickup(this, heldItem);
+            item = heldItem;
+        }
+    }
+
+    private Collider GetClosestItem(Collider[] colliders)
+    {
+        if (colliders.Length < 1) return null;
+
+        Collider closestCollider = null;
+
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].CompareTag("Item"))
+            {
+                if (closestCollider == null)
+                {
+                    closestCollider = colliders[i];
+                }
+                else
+                {
+                    if (Vector3.Distance(colliders[i].transform.position, transform.position) <
+                        Vector3.Distance(closestCollider.transform.position, transform.position))
+                    {
+                        closestCollider = colliders[i];
+                    }
+                }
+            }
+        }
+
+        return closestCollider;
+    }
 
     // what happens when the player joins the server
     [ServerRpc]

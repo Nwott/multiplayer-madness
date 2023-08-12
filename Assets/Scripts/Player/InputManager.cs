@@ -7,10 +7,11 @@ using FishNet.Connection;
 public class InputManager : NetworkBehaviour
 {
     [Header("References")]
-    //[SerializeField] private GameManager gameManager;
+    [SerializeField] private ClientPlayer clientPlayer;
 
     Controls controls;
     Controls.MovementActions movement;
+    Controls.InteractionActions interaction;
     Vector2 hInput;
     PlayerMovement playerController;
 
@@ -19,8 +20,10 @@ public class InputManager : NetworkBehaviour
         controls = new Controls();
         playerController = gameObject.GetComponent<PlayerMovement>();
         movement = controls.Movement;
+        interaction = controls.Interaction;
 
         movement.HMovement.performed += ctx => hInput = ctx.ReadValue<Vector2>();
+        interaction.PickUp.performed += _ => clientPlayer.PickUp();
         //movement.Eat.performed += ctx => playerController.eat();
         
 
