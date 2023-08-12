@@ -88,7 +88,7 @@ public class GameManager : NetworkBehaviour
     public void OnItemPickup(ClientPlayer player, Item item, Vector3 holdObject)
     {
         item.transform.position = holdObject;
-        item.transform.parent = player.transform;
+        item.transform.parent = player.HoldObject.transform;
         item.GiveOwnership(player.Owner);
     }
 

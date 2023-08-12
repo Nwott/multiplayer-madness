@@ -4,6 +4,7 @@ using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Connection;
+using UnityEngine.InputSystem;
 
 public class ClientPlayer : NetworkBehaviour
 {
@@ -11,6 +12,8 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private GameObject ownerObjects; // object to enable if the player is the owner of this object
     [SerializeField] private GameObject holdObject;
     [SerializeField] private GameObject firepoint;
+    [SerializeField] private GameObject model;
+    [SerializeField] private Camera cam;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -30,6 +33,8 @@ public class ClientPlayer : NetworkBehaviour
 
     public string Username { get { return username; } }
 
+    public GameObject HoldObject { get { return holdObject; } }
+
     public override void OnOwnershipClient(NetworkConnection prevOwner)
     {
         base.OnOwnershipClient(prevOwner);
@@ -45,6 +50,8 @@ public class ClientPlayer : NetworkBehaviour
     {
         if(IsOwner)
         {
+            RotatePlayer();
+
             Timer();
 
             if(Input.GetKeyDown(KeyCode.U))
@@ -127,6 +134,19 @@ public class ClientPlayer : NetworkBehaviour
         }
 
         return closestCollider;
+    }
+
+    private void RotatePlayer()
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = cam.nearClipPlane;
+        Ray ray = cam.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit))
+        {
+            model.transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+        }
     }
 
     // what happens when the player joins the server

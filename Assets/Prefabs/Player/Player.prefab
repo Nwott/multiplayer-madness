@@ -37,8 +37,6 @@ Transform:
   m_Children:
   - {fileID: 4155086856464650805}
   - {fileID: 3148954567521632805}
-  - {fileID: 1674783252990737209}
-  - {fileID: 8829965082012336738}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5718341626411701019
@@ -197,6 +195,8 @@ MonoBehaviour:
   ownerObjects: {fileID: 4070333815410439728}
   holdObject: {fileID: 3556876836471698052}
   firepoint: {fileID: 3978630774075679806}
+  model: {fileID: 8411214436937218821}
+  cam: {fileID: 5435610187890755107}
   maxHealth: 100
   itemDetectionRadius: 4
   username: 
@@ -226,12 +226,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3556876836471698052}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.815}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4865602302702749260}
+  m_Father: {fileID: 4155086856464650805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3978630774075679806
 GameObject:
@@ -257,12 +257,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3978630774075679806}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.532}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4865602302702749260}
+  m_Father: {fileID: 4155086856464650805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4070333815410439728
 GameObject:
@@ -464,7 +464,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1674783252990737209}
+  - {fileID: 8829965082012336738}
   m_Father: {fileID: 4865602302702749260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6892037704193583694
