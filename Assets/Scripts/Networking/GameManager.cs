@@ -89,6 +89,7 @@ public class GameManager : NetworkBehaviour
     {
         item.transform.position = holdObject;
         item.transform.parent = player.HoldObject.transform;
+        OnItemPickupObservers(player, item, holdObject);
         item.GiveOwnership(player.Owner);
     }
 
@@ -96,6 +97,13 @@ public class GameManager : NetworkBehaviour
     public void RefreshObjectActivity(GameObject obj, bool active)
     {
         obj.SetActive(active);
+    }
+
+    [ObserversRpc]
+    public void OnItemPickupObservers(ClientPlayer player, Item item, Vector3 holdObject)
+    {
+        item.transform.position = holdObject;
+        item.transform.parent = player.HoldObject.transform;
     }
 
     [ServerRpc(RequireOwnership = false)]
