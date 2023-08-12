@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Eat",
+                    "name": "Unfreeze",
                     "type": "Value",
                     "id": "aa1265a1-0d39-4b8f-927d-268303553e2b",
                     "expectedControlType": "Button",
@@ -138,11 +138,11 @@
                 {
                     "name": "",
                     "id": "ac55ade5-2ce9-4552-98b7-e126dffc88de",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Eat",
+                    "action": "Unfreeze",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

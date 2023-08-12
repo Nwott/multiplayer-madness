@@ -37,7 +37,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Eat"",
+                    ""name"": ""Unfreeze"",
                     ""type"": ""Value"",
                     ""id"": ""aa1265a1-0d39-4b8f-927d-268303553e2b"",
                     ""expectedControlType"": ""Button"",
@@ -160,11 +160,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ac55ade5-2ce9-4552-98b7-e126dffc88de"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Eat"",
+                    ""action"": ""Unfreeze"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -204,7 +204,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_HMovement = m_Movement.FindAction("HMovement", throwIfNotFound: true);
-        m_Movement_Eat = m_Movement.FindAction("Eat", throwIfNotFound: true);
+        m_Movement_Unfreeze = m_Movement.FindAction("Unfreeze", throwIfNotFound: true);
         // Interaction
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
         m_Interaction_Interact = m_Interaction.FindAction("Interact", throwIfNotFound: true);
@@ -270,13 +270,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Movement;
     private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
     private readonly InputAction m_Movement_HMovement;
-    private readonly InputAction m_Movement_Eat;
+    private readonly InputAction m_Movement_Unfreeze;
     public struct MovementActions
     {
         private @Controls m_Wrapper;
         public MovementActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @HMovement => m_Wrapper.m_Movement_HMovement;
-        public InputAction @Eat => m_Wrapper.m_Movement_Eat;
+        public InputAction @Unfreeze => m_Wrapper.m_Movement_Unfreeze;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -289,9 +289,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @HMovement.started += instance.OnHMovement;
             @HMovement.performed += instance.OnHMovement;
             @HMovement.canceled += instance.OnHMovement;
-            @Eat.started += instance.OnEat;
-            @Eat.performed += instance.OnEat;
-            @Eat.canceled += instance.OnEat;
+            @Unfreeze.started += instance.OnUnfreeze;
+            @Unfreeze.performed += instance.OnUnfreeze;
+            @Unfreeze.canceled += instance.OnUnfreeze;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -299,9 +299,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @HMovement.started -= instance.OnHMovement;
             @HMovement.performed -= instance.OnHMovement;
             @HMovement.canceled -= instance.OnHMovement;
-            @Eat.started -= instance.OnEat;
-            @Eat.performed -= instance.OnEat;
-            @Eat.canceled -= instance.OnEat;
+            @Unfreeze.started -= instance.OnUnfreeze;
+            @Unfreeze.performed -= instance.OnUnfreeze;
+            @Unfreeze.canceled -= instance.OnUnfreeze;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -368,7 +368,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IMovementActions
     {
         void OnHMovement(InputAction.CallbackContext context);
-        void OnEat(InputAction.CallbackContext context);
+        void OnUnfreeze(InputAction.CallbackContext context);
     }
     public interface IInteractionActions
     {

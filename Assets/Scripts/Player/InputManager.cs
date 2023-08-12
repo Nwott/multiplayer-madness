@@ -14,16 +14,20 @@ public class InputManager : NetworkBehaviour
     Controls.InteractionActions interaction;
     Vector2 hInput;
     PlayerMovement playerController;
+    PlayerFreeze PlayerFreeze;
 
     private void Awake()
     {
         controls = new Controls();
         playerController = gameObject.GetComponent<PlayerMovement>();
+        PlayerFreeze = gameObject.GetComponent<PlayerFreeze>();
         movement = controls.Movement;
         interaction = controls.Interaction;
 
         movement.HMovement.performed += ctx => hInput = ctx.ReadValue<Vector2>();
         interaction.Interact.performed += _ => Interact();
+        movement.Unfreeze.performed += ctx => PlayerFreeze.PartialUnfreeze();
+
         //movement.Eat.performed += ctx => playerController.eat();
         
 

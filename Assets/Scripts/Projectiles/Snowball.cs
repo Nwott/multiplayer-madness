@@ -37,6 +37,7 @@ public class Snowball : Projectile
         // freeze player here...
         // create script called PlayerFreeze in Player script folder
         print("Player frozen.");
+        TargetPlayer.GetComponent<PlayerFreeze>().Freeze();
     }
 
     private void OnTriggerEnter(Collider other)
