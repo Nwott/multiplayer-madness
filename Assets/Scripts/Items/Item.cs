@@ -49,7 +49,7 @@ public class Item : NetworkBehaviour
             targetPos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
         }
 
-        GameManager.Instance.SpawnProjectileRPC(projectile, Firepoint.position, Quaternion.identity, targetPos);
+        GameManager.Instance.SpawnProjectileRPC(projectile, Firepoint.position, Quaternion.identity, transform.parent.forward);
 
         IsDone();
     }

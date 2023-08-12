@@ -106,6 +106,7 @@ public class GameManager : NetworkBehaviour
 
         Projectile proj = projectile.GetComponent<Projectile>();
         proj.Target = targetPos;
+        proj.ThrownByPlayer = true;
     }
 
 }
