@@ -58,7 +58,8 @@ public class Projectile : NetworkBehaviour
 
     protected void MoveTowardsTarget(Vector3 target)
     {
-        MoveInDirection(target);
+        transform.LookAt(target);
+        controller.Move(transform.forward * speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, target) <= despawnRange)
         {
             Despawn();
