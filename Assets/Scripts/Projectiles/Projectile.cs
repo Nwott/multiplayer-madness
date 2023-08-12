@@ -7,11 +7,32 @@ public class Projectile : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] protected CharacterController controller;
+    [SerializeField] private DestroyAfterTime destroyScript;
 
     [Header("Settings")]
     [SerializeField] protected float speed = 15;
     [SerializeField] protected float damage;
     [SerializeField] protected float despawnRange = 0.3f;
+
+    private bool thrownByPlayer;
+
+    private BarrelData.ActionDone callback;
+
+    public BarrelData.ActionDone Callback { get { return callback; } set { callback = value; } }
+
+    public bool ThrownByPlayer
+    {
+        get { return thrownByPlayer; }
+        set
+        {
+            thrownByPlayer = value;
+
+            if (thrownByPlayer)
+            {
+                destroyScript.enabled = true;
+            }
+        }
+    }
 
     private Vector3 target;
     protected GameObject targetPlayer;
@@ -28,7 +49,14 @@ public class Projectile : NetworkBehaviour
     {
         if (IsServer)
         {
-            MoveTowardsTarget(Target);
+            if(ThrownByPlayer)
+            {
+                MoveInDirection(Target);
+            }
+            else
+            {
+                MoveTowardsTarget(Target);
+            }
         }
     }
 
@@ -38,8 +66,14 @@ public class Projectile : NetworkBehaviour
         controller.Move(transform.forward * speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, target) <= despawnRange)
         {
+            callback(transform.position);
             Despawn();
         }
+    }
+
+    protected void MoveInDirection(Vector3 direction)
+    {
+        controller.Move(direction.normalized * speed * Time.deltaTime);
     }
 
     private void Start()

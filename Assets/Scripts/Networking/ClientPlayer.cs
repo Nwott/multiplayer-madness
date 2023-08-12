@@ -4,14 +4,20 @@ using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Connection;
+using UnityEngine.InputSystem;
 
 public class ClientPlayer : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject ownerObjects; // object to enable if the player is the owner of this object
+    [SerializeField] private GameObject holdObject;
+    [SerializeField] private GameObject firepoint;
+    [SerializeField] private GameObject model;
+    [SerializeField] private Camera cam;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private float itemDetectionRadius = 4f;
 
     [SyncVar][HideInInspector] private string username;
     [SyncVar][HideInInspector] private int health;
@@ -19,9 +25,15 @@ public class ClientPlayer : NetworkBehaviour
     private float currentTime; // amount of time in seconds that the player has been alive for
     [SyncVar][HideInInspector] private float longestTime; // amount of time in seconds that the player has been alive for the longest
 
+    private Item item;
+
+    public Item Item { get { return item; } }
+
     public float LongestTime { get { return longestTime; } }
 
     public string Username { get { return username; } }
+
+    public GameObject HoldObject { get { return holdObject; } }
 
     public override void OnOwnershipClient(NetworkConnection prevOwner)
     {
@@ -38,6 +50,8 @@ public class ClientPlayer : NetworkBehaviour
     {
         if(IsOwner)
         {
+            RotatePlayer();
+
             Timer();
 
             if(Input.GetKeyDown(KeyCode.U))
@@ -71,6 +85,71 @@ public class ClientPlayer : NetworkBehaviour
     private void Death()
     {
         currentTime = 0;
+    }
+
+    // for picking up items
+    public void PickUp()
+    {
+        if (item != null) return; // if player is already holding item, don't run code
+
+        if(IsOwner)
+        {
+            Collider closestItem = GetClosestItem(Physics.OverlapSphere(transform.position, itemDetectionRadius));
+
+            if (closestItem != null)
+            {
+                Item heldItem = closestItem.GetComponent<Item>();
+                GameManager.Instance.OnItemPickup(this, heldItem, holdObject);
+                item = heldItem;
+            }
+        }
+    }
+
+    public void UseItem()
+    {
+        item.Firepoint = firepoint.transform;
+        item.Perform();
+    }
+
+    private Collider GetClosestItem(Collider[] colliders)
+    {
+        if (colliders.Length < 1) return null;
+
+        Collider closestCollider = null;
+
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].CompareTag("Item"))
+            {
+                if (closestCollider == null)
+                {
+                    closestCollider = colliders[i];
+                }
+                else
+                {
+                    if (Vector3.Distance(colliders[i].transform.position, transform.position) <
+                        Vector3.Distance(closestCollider.transform.position, transform.position))
+                    {
+                        closestCollider = colliders[i];
+                    }
+                }
+            }
+        }
+
+        return closestCollider;
+    }
+
+    private void RotatePlayer()
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = cam.nearClipPlane;
+        Ray ray = cam.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit))
+        {
+            model.transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+        }
     }
 
     // what happens when the player joins the server

@@ -6,7 +6,7 @@ using FishNet.Object;
 public class Snowball : Projectile
 {
     [Header("Snowball Settings")]
-    [SerializeField] private float detectionRange = 0.5f; // range to detect player
+    [SerializeField] private float detectionRange = 1f; // range to detect player
 
     protected override void OnUpdate()
     {
@@ -22,6 +22,8 @@ public class Snowball : Projectile
     {
         if (!IsServer) return;
 
+        if (targetPlayer == null) return;
+
         if(Vector3.Distance(transform.position, TargetPlayer.transform.position) <= detectionRange)
         {
             // player in range
@@ -36,4 +38,16 @@ public class Snowball : Projectile
         // create script called PlayerFreeze in Player script folder
         print("Player frozen.");
     }
+
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if (targetPlayer != null) return;
+
+        if (other.CompareTag("Player"))
+        {
+            // player in range
+            FreezePlayer();
+            Despawn();
+        }
+    }*/
 }
