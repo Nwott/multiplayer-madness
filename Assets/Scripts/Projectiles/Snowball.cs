@@ -39,7 +39,7 @@ public class Snowball : Projectile
         print("Player frozen.");
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (targetPlayer != null) return;
 
@@ -49,5 +49,5 @@ public class Snowball : Projectile
             FreezePlayer();
             Despawn();
         }
-    }
+    }*/
 }

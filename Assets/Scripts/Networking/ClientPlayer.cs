@@ -92,13 +92,16 @@ public class ClientPlayer : NetworkBehaviour
     {
         if (item != null) return; // if player is already holding item, don't run code
 
-        Collider closestItem = GetClosestItem(Physics.OverlapSphere(transform.position, itemDetectionRadius));
-
-        if(closestItem != null)
+        if(IsOwner)
         {
-            Item heldItem = closestItem.GetComponent<Item>();
-            GameManager.Instance.OnItemPickup(this, heldItem, holdObject.transform.position);
-            item = heldItem;
+            Collider closestItem = GetClosestItem(Physics.OverlapSphere(transform.position, itemDetectionRadius));
+
+            if (closestItem != null)
+            {
+                Item heldItem = closestItem.GetComponent<Item>();
+                GameManager.Instance.OnItemPickup(this, heldItem, holdObject);
+                item = heldItem;
+            }
         }
     }
 

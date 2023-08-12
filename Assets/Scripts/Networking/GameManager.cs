@@ -85,11 +85,11 @@ public class GameManager : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void OnItemPickup(ClientPlayer player, Item item, Vector3 holdObject)
+    public void OnItemPickup(ClientPlayer player, Item item, GameObject holdObject)
     {
-        item.transform.position = holdObject;
+        item.transform.position = holdObject.transform.position;
         item.transform.parent = player.HoldObject.transform;
-        OnItemPickupObservers(player, item, holdObject);
+        OnItemPickupObservers(player, item, holdObject.transform.position);
         item.GiveOwnership(player.Owner);
     }
 
