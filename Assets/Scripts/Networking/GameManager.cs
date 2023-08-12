@@ -97,6 +97,7 @@ public class GameManager : NetworkBehaviour
         item.transform.position = holdObject.transform.position;
         item.transform.parent = player.HoldObject.transform;
         item.ItemHeld = true;
+        item.Player = player;
         OnItemPickupObservers(player, item, holdObject.transform.position);
         item.GiveOwnership(player.Owner);
     }

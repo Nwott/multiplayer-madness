@@ -174,6 +174,7 @@ public class ClientPlayer : NetworkBehaviour
     public void ChangeHealth(int change)
     {
         health += change;
+        health = Mathf.Clamp(health, 0, maxHealth);
     }
 
     [ServerRpc]

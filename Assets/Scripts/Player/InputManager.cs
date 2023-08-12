@@ -24,6 +24,7 @@ public class InputManager : NetworkBehaviour
 
         movement.HMovement.performed += ctx => hInput = ctx.ReadValue<Vector2>();
         interaction.Interact.performed += _ => Interact();
+        interaction.UseItem.performed += _ => UseItem();
         //movement.Eat.performed += ctx => playerController.eat();
         
 
@@ -50,7 +51,11 @@ public class InputManager : NetworkBehaviour
         {
             clientPlayer.PickUp();
         }
-        else
+    }
+
+    private void UseItem()
+    {
+        if(clientPlayer.Item != null)
         {
             clientPlayer.UseItem();
         }
