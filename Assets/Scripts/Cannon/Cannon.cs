@@ -96,7 +96,7 @@ public class Cannon : NetworkBehaviour
             Vector3 target = barrelData[i].Player.gameObject.transform.position;
             target = new Vector3(target.x, 0, target.z);
 
-            barrelData[i].Target = target;
+            barrelData[i].Target = barrelData[i].Player.gameObject;
             barrelData[i].Barrel.transform.LookAt(target);
         }
     }

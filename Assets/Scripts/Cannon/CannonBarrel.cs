@@ -8,10 +8,11 @@ public class CannonBarrel : MonoBehaviour
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform firepoint;
 
-    public void Shoot(Vector3 target)
+    public void Shoot(GameObject target)
     {
         GameObject cannonBall = GameManager.Instance.SpawnObject(projectile, firepoint.position, Quaternion.identity, null);
         Projectile projScript = cannonBall.GetComponent<Projectile>();
-        projScript.Target = target;
+        projScript.Target = target.transform.position;
+        projScript.TargetPlayer = target;
     }
 }

@@ -6,18 +6,25 @@ using FishNet.Object;
 public class Projectile : NetworkBehaviour
 {
     [Header("References")]
-    [SerializeField] private CharacterController controller;
+    [SerializeField] protected CharacterController controller;
 
     [Header("Settings")]
-    [SerializeField] private float speed;
-    [SerializeField] private float damage;
-    [SerializeField] private float damageRange;
+    [SerializeField] protected float speed = 15;
+    [SerializeField] protected float damage;
+    [SerializeField] protected float despawnRange = 0.3f;
 
     private Vector3 target;
+    protected GameObject targetPlayer;
 
     public Vector3 Target { get { return target; } set { target = value; } }
+    public GameObject TargetPlayer { get { return targetPlayer; } set { targetPlayer = value; } }
 
-    void Update()
+    protected virtual void OnStart()
+    {
+
+    }
+
+    protected virtual void OnUpdate()
     {
         if (IsServer)
         {
@@ -25,19 +32,23 @@ public class Projectile : NetworkBehaviour
         }
     }
 
-    void MoveTowardsTarget(Vector3 target)
+    protected void MoveTowardsTarget(Vector3 target)
     {
         transform.LookAt(target);
         controller.Move(transform.forward * speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, target) <= damageRange)
+        if (Vector3.Distance(transform.position, target) <= despawnRange)
         {
             Despawn();
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    protected void DestroyEntity()
+    private void Start()
     {
-        Despawn();
+        OnStart();
+    }
+
+    private void Update()
+    {
+        OnUpdate();
     }
 }
