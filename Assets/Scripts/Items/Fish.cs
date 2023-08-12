@@ -10,6 +10,8 @@ public class Fish : Item
 
     protected override void Use()
     {
+        if (!IsOwner) return;
+
         base.Use();
 
         Player.ChangeHealth(amountToHeal);
