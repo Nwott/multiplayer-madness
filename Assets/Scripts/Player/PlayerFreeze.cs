@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using UnityEngine.UI;
+using FishNet.Connection;
 
-public class PlayerFreeze : MonoBehaviour
+public class PlayerFreeze : NetworkBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private int unfreezeNumber;
@@ -29,6 +33,7 @@ public class PlayerFreeze : MonoBehaviour
                 damageTimer = 0;
                 clientPlayer.ChangeHealth(-damage);
             }
+            print(playerMovement.canMove);
         }
     }
 
@@ -40,6 +45,7 @@ public class PlayerFreeze : MonoBehaviour
         }
         else
         {
+            print("Doin the freeze thing");
             isFrozen = true;
             unfreezeCount = 0;
             playerMovement.canMove = false;
