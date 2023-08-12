@@ -17,6 +17,10 @@ public class Item : NetworkBehaviour
 
     private bool itemHeld;
 
+    private ClientPlayer player;
+
+    public ClientPlayer Player { get { return player; } set { player = value; } }
+
     public bool ItemHeld { get { return itemHeld; } set { itemHeld = value; } }
     
     public Transform Firepoint { get { return firepoint; } set { firepoint = value; } }
