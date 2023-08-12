@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using UnityEngine.InputSystem;
+using FishNet.Object.Synchronizing;
 
 public class Item : NetworkBehaviour
 {
     [Header("Item References")]
     [SerializeField] private GameObject projectile;
     [SerializeField] private ItemScriptableObject itemSO;
+
+    [SyncVar][HideInInspector] public GameObject spawnedProjectile;
 
     private Transform firepoint;
     
@@ -32,13 +35,7 @@ public class Item : NetworkBehaviour
     }
 
     protected virtual void Throw()
-    {
-        print("test");
-
-        GameObject obj = Instantiate(projectile, Firepoint.position, Quaternion.identity);
-        GameManager.Instance.OnlySpawnObjectRPC(obj);
-        Projectile proj = obj.GetComponent<Projectile>();
-
+    { 
         Vector3 targetPos = new Vector3(0, transform.position.y, 0);
 
         // get target position from mouse position
@@ -52,9 +49,7 @@ public class Item : NetworkBehaviour
             targetPos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
         }
 
-        proj.Target = targetPos;
-
-
+        GameManager.Instance.SpawnProjectileRPC(projectile, Firepoint.position, Quaternion.identity, targetPos);
 
         IsDone();
     }

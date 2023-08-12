@@ -104,7 +104,6 @@ public class ClientPlayer : NetworkBehaviour
 
     public void UseItem()
     {
-        print("test");
         item.Firepoint = firepoint.transform;
         item.Perform();
     }

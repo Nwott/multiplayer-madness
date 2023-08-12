@@ -72,7 +72,7 @@ public class GameManager : NetworkBehaviour
         Spawn(go);
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void OnlySpawnObjectRPC(GameObject obj)
     {
         Spawn(obj);
@@ -97,4 +97,15 @@ public class GameManager : NetworkBehaviour
     {
         obj.SetActive(active);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SpawnProjectileRPC(GameObject obj, Vector3 position, Quaternion rotation, Vector3 targetPos)
+    {
+        GameObject projectile = Instantiate(obj, position, rotation);
+        Spawn(projectile);
+
+        Projectile proj = projectile.GetComponent<Projectile>();
+        proj.Target = targetPos;
+    }
+
 }
