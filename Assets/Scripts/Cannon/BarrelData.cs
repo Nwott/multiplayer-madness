@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BarrelData
 {
-    public GameObject Barrel { get; private set; }
+    public CannonBarrel Barrel { get; private set; }
     public ClientPlayer Player { get; private set; }
+    public Vector3 Target { get; set; }
 
-    public BarrelData(GameObject barrel, ClientPlayer player)
+    public BarrelData(CannonBarrel barrel, ClientPlayer player)
     {
         Barrel = barrel;
         Player = player;

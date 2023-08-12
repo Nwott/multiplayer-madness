@@ -53,9 +53,9 @@ MonoBehaviour:
   cannonBarrel: {fileID: 3250681477134792191, guid: 010b61abb9efbd849b23837e5c0e318c,
     type: 3}
   barrelSpawnpoint: {fileID: 5051771261758746263}
-  waitTime: 2
+  waitTime: 0.5
   cycleInterval: 7
-  afterShootTime: 3
+  afterShootTime: 2
 --- !u!114 &3572552035922302386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,17 +76,17 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: 14.36, y: -0.9, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
-  _isGlobal: 0
+  _isGlobal: 1
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 1
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
+  _scenePathHash: 774665742
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 18397378149165380093
 --- !u!1 &5051771261758746263

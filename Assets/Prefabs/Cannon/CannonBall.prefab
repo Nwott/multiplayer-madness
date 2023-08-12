@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: ce6e48dafc27b42468b8c07dabb63a5e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 8403688489948359160}
   - component: {fileID: 5884703057188210211}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: CannonBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 7604544518039595611}
+  - {fileID: 5884703057188210211}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -171,9 +172,9 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 2387753929
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 16708593754581118867
+  <AssetPathHash>k__BackingField: 16083403387663002151
 --- !u!114 &7604544518039595611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +238,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -256,9 +257,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe061a652dafa12a9e2f77594b05604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 715412717069000953}
-  _networkObjectCache: {fileID: 0}
-  speed: 5
+  _networkObjectCache: {fileID: 715412717069000953}
+  controller: {fileID: 8403688489948359160}
+  speed: 15
   damage: 0
   damageRange: 0.1
