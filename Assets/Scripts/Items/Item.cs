@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
+using UnityEngine.InputSystem;
 
 public class Item : NetworkBehaviour
 {
@@ -32,11 +33,28 @@ public class Item : NetworkBehaviour
 
     protected virtual void Throw()
     {
+        print("test");
+
         GameObject obj = Instantiate(projectile, Firepoint.position, Quaternion.identity);
         GameManager.Instance.OnlySpawnObjectRPC(obj);
-        Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Projectile proj = obj.GetComponent<Projectile>();
+
+        Vector3 targetPos = new Vector3(0, transform.position.y, 0);
+
+        // get target position from mouse position
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = Camera.main.nearClipPlane;
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            targetPos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+        }
+
         proj.Target = targetPos;
+
+
 
         IsDone();
     }

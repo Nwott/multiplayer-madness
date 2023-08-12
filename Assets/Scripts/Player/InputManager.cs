@@ -23,7 +23,7 @@ public class InputManager : NetworkBehaviour
         interaction = controls.Interaction;
 
         movement.HMovement.performed += ctx => hInput = ctx.ReadValue<Vector2>();
-        interaction.Interact.performed += _ => clientPlayer.PickUp();
+        interaction.Interact.performed += _ => Interact();
         //movement.Eat.performed += ctx => playerController.eat();
         
 

@@ -6,7 +6,7 @@ using FishNet.Object;
 public class Snowball : Projectile
 {
     [Header("Snowball Settings")]
-    [SerializeField] private float detectionRange = 0.5f; // range to detect player
+    [SerializeField] private float detectionRange = 1f; // range to detect player
 
     protected override void OnUpdate()
     {
