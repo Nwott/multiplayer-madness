@@ -56,6 +56,6 @@ public class Item : NetworkBehaviour
 
     protected virtual void IsDone()
     {
-
+        GameManager.Instance.DespawnObjectRPC(gameObject);
     }
 }

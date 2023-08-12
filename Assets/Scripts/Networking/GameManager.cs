@@ -78,7 +78,7 @@ public class GameManager : NetworkBehaviour
         Spawn(obj);
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void DespawnObjectRPC(GameObject obj)
     {
         Despawn(obj);
