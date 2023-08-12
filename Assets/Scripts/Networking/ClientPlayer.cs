@@ -173,8 +173,6 @@ public class ClientPlayer : NetworkBehaviour
     [ServerRpc]
     public void ChangeHealth(int change)
     {
-        if (health == maxHealth) return;
-
         health += change;
         health = Mathf.Clamp(health, 0, maxHealth);
     }
