@@ -8,6 +8,9 @@ public class GameManager : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private Cannon cannon;
+    [SerializeField] private List<GameObject> itemDrops = new();
+
+    public List<GameObject> ItemDrops { get { return itemDrops; } }
 
     public static GameManager Instance { get; private set; }
 

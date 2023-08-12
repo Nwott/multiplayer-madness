@@ -36,19 +36,6 @@ public class Item : NetworkBehaviour
 
     protected virtual void Throw()
     { 
-        Vector3 targetPos = new Vector3(0, transform.position.y, 0);
-
-        // get target position from mouse position
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-        mousePos.z = Camera.main.nearClipPlane;
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-        }
-
         GameManager.Instance.SpawnProjectileRPC(projectile, Firepoint.position, Quaternion.identity, transform.parent.forward);
 
         IsDone();

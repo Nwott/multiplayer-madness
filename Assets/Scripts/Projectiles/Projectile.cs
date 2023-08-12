@@ -16,6 +16,10 @@ public class Projectile : NetworkBehaviour
 
     private bool thrownByPlayer;
 
+    private BarrelData.ActionDone callback;
+
+    public BarrelData.ActionDone Callback { get { return callback; } set { callback = value; } }
+
     public bool ThrownByPlayer
     {
         get { return thrownByPlayer; }
@@ -62,6 +66,7 @@ public class Projectile : NetworkBehaviour
         controller.Move(transform.forward * speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, target) <= despawnRange)
         {
+            callback(transform.position);
             Despawn();
         }
     }

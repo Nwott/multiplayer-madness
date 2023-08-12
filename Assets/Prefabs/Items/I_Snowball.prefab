@@ -157,6 +157,7 @@ MonoBehaviour:
   projectile: {fileID: 6432767970490893840, guid: f08628574ea510a48a9ae1af3e8b2b77,
     type: 3}
   itemSO: {fileID: 11400000, guid: 1029c887e1242fb4694d5cbdaa95127c, type: 2}
+  spawnedProjectile: {fileID: 0}
 --- !u!114 &450781800676019618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +182,7 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
-  _isGlobal: 1
+  _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
