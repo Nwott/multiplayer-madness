@@ -14,5 +14,6 @@ public class CannonBarrel : MonoBehaviour
         Projectile projScript = cannonBall.GetComponent<Projectile>();
         projScript.Target = target.transform.position;
         projScript.TargetPlayer = target;
+        projScript.Player = target.GetComponent<ClientPlayer>();
     }
 }

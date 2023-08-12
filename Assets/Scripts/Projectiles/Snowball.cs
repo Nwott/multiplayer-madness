@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
+using FishNet.Connection;
 
 public class Snowball : Projectile
 {
@@ -37,7 +38,9 @@ public class Snowball : Projectile
         // freeze player here...
         // create script called PlayerFreeze in Player script folder
         print("Player frozen.");
-        targetPlayer.GetComponent<PlayerFreeze>().Freeze();
+        //targetPlayer.GetComponent<PlayerFreeze>().Freeze();
+
+        FreezeClient(Player.Owner, Player);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,5 +53,11 @@ public class Snowball : Projectile
             FreezePlayer();
             Despawn();
         }
+    }
+
+    [TargetRpc]
+    private void FreezeClient(NetworkConnection conn, ClientPlayer player)
+    {
+        player.Frozen = true;
     }
 }
