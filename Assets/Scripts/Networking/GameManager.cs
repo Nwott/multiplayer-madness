@@ -71,4 +71,10 @@ public class GameManager : NetworkBehaviour
         GameObject go = Instantiate(obj, position, rotation);
         Spawn(go);
     }
+
+    [ServerRpc]
+    public void DespawnObjectRPC(GameObject obj)
+    {
+        Despawn(obj);
+    }
 }

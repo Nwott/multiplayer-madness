@@ -90,12 +90,14 @@ public class Cannon : NetworkBehaviour
         // rotates barrels towards players
         for (int i = 0; i < barrelData.Count; i++)
         {
-            barrelData[i].Barrel.SetActive(true);
-            RefreshBarrelActive(barrelData[i].Barrel, true);
+            barrelData[i].Barrel.gameObject.SetActive(true);
+            RefreshBarrelActive(barrelData[i].Barrel.gameObject, true);
 
             Vector3 target = barrelData[i].Player.gameObject.transform.position;
+            target = new Vector3(target.x, 0, target.z);
 
-            barrelData[i].Barrel.transform.LookAt(new Vector3(target.x, 0, target.z));
+            barrelData[i].Target = barrelData[i].Player.gameObject;
+            barrelData[i].Barrel.transform.LookAt(target);
         }
     }
 
@@ -103,15 +105,19 @@ public class Cannon : NetworkBehaviour
     {
         startCycleTimer = true;
 
-        print("Cannons shot.");
+        // call shoot on each barrel
+        for(int i = 0; i < barrelData.Count; i++)
+        {
+            barrelData[i].Barrel.Shoot(barrelData[i].Target);
+        }
     }
 
     private void AfterShoot()
     {
         for(int i = 0; i < barrelData.Count; i++)
         {
-            barrelData[i].Barrel.SetActive(false);
-            RefreshBarrelActive(barrelData[i].Barrel, false);
+            barrelData[i].Barrel.gameObject.SetActive(false);
+            RefreshBarrelActive(barrelData[i].Barrel.gameObject, false);
         }
     }
 
@@ -120,7 +126,7 @@ public class Cannon : NetworkBehaviour
         if (IsServer)
         {
             GameObject barrel = GameManager.Instance.SpawnObject(cannonBarrel, barrelSpawnpoint.transform.position, Quaternion.identity, gameObject.transform);
-            barrelData.Add(new BarrelData(barrel, player));
+            barrelData.Add(new BarrelData(barrel.GetComponent<CannonBarrel>(), player));
             barrel.SetActive(false);
             RefreshBarrelActive(barrel, false);
         }
