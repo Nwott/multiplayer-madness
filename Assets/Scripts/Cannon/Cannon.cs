@@ -25,6 +25,8 @@ public class Cannon : NetworkBehaviour
 
     private List<BarrelData> barrelData = new();
 
+    [HideInInspector] private Item tempItem;
+
     private void Update()
     {
         if (!IsServer) return;
@@ -121,13 +123,15 @@ public class Cannon : NetworkBehaviour
         }
     }
 
+    // called if player dodges cannon ball
     protected void DropItem(Vector3 position)
     {
         if (GameManager.Instance.ItemDrops.Count <= 0) return;
 
         GameObject randomItem = GameManager.Instance.ItemDrops[Random.Range(0, GameManager.Instance.ItemDrops.Count - 1)];
 
-        GameManager.Instance.SpawnObject(randomItem, position, Quaternion.identity, null);
+        GameObject itemObj = GameManager.Instance.SpawnObject(randomItem, position, Quaternion.identity, null);
+        GameManager.Instance.AddItemToList(itemObj.GetComponent<Item>());
     }
 
     public void AddBarrel(ClientPlayer player)

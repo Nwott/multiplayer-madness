@@ -14,6 +14,10 @@ public class Item : NetworkBehaviour
     [SyncVar][HideInInspector] public GameObject spawnedProjectile;
 
     private Transform firepoint;
+
+    private bool itemHeld;
+
+    public bool ItemHeld { get { return itemHeld; } set { itemHeld = value; } }
     
     public Transform Firepoint { get { return firepoint; } set { firepoint = value; } }
 
@@ -43,6 +47,7 @@ public class Item : NetworkBehaviour
 
     protected virtual void IsDone()
     {
+        GameManager.Instance.RemoveItemFromList(this);
         GameManager.Instance.DespawnObjectRPC(gameObject);
     }
 }

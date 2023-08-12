@@ -10,11 +10,15 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private Cannon cannon;
     [SerializeField] private List<GameObject> itemDrops = new();
 
+    [Header("Settings")]
+    [SerializeField] private int maxItems = 5; // max amount of items that can be on the map at once
+
     public List<GameObject> ItemDrops { get { return itemDrops; } }
 
     public static GameManager Instance { get; private set; }
 
     [SyncObject] public readonly SyncList<ClientPlayer> players = new();
+    [SyncObject] public readonly SyncList<Item> items = new();
 
     ClientPlayer playerWLongestTime; // player with longest time
 
@@ -92,6 +96,7 @@ public class GameManager : NetworkBehaviour
     {
         item.transform.position = holdObject.transform.position;
         item.transform.parent = player.HoldObject.transform;
+        item.ItemHeld = true;
         OnItemPickupObservers(player, item, holdObject.transform.position);
         item.GiveOwnership(player.Owner);
     }
@@ -120,4 +125,35 @@ public class GameManager : NetworkBehaviour
         proj.ThrownByPlayer = true;
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void AddItemToList(Item item)
+    {
+        items.Add(item);
+
+        if(items.Count > maxItems)
+        {
+            for(int i = 0; i < items.Count; i++)
+            {
+                if (items[i] == null)
+                {
+                    continue;
+                }
+
+                if (items[i].ItemHeld)
+                {
+                    continue;
+                }
+
+                RemoveItemFromList(items[i]);
+                Despawn(items[i].gameObject);
+                break;
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RemoveItemFromList(Item item)
+    {
+        items.Remove(item);
+    }
 }
