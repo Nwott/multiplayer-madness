@@ -14,6 +14,10 @@ public class Projectile : NetworkBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float despawnRange = 0.3f;
 
+    protected ClientPlayer player;
+
+    public ClientPlayer Player { get { return player; } set { player = value; } }
+
     private bool thrownByPlayer;
 
     private BarrelData.ActionDone callback;

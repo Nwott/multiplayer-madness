@@ -14,6 +14,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private GameObject firepoint;
     [SerializeField] private GameObject model;
     [SerializeField] private Camera cam;
+    [SerializeField] private PlayerFreeze freeze;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -26,6 +27,22 @@ public class ClientPlayer : NetworkBehaviour
     [SyncVar][HideInInspector] private float longestTime; // amount of time in seconds that the player has been alive for the longest
 
     private Item item;
+
+    private bool frozen;
+
+    public bool Frozen 
+    { 
+        get { return frozen; } 
+        set 
+        { 
+            frozen = value; 
+
+            if(frozen)
+            {
+                freeze.Freeze();
+            }
+        } 
+    }
 
     public Item Item { get { return item; } }
 

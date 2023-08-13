@@ -8,6 +8,7 @@ public class PlayerMovement : NetworkBehaviour
     Vector2 hInput;
     CharacterController controller;
     [SerializeField] private float moveSpeed = 5f;
+    public bool canMove = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class PlayerMovement : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(IsOwner)
+        if(IsOwner && canMove)
         {
             controller.Move(new Vector3(hInput.x * moveSpeed * Time.deltaTime, 0, hInput.y * moveSpeed * Time.deltaTime));
         }
