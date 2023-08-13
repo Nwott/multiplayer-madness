@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System.Linq;
 
 public class GameManager : NetworkBehaviour
 {
@@ -12,15 +13,17 @@ public class GameManager : NetworkBehaviour
 
     [Header("Settings")]
     [SerializeField] private int maxItems = 5; // max amount of items that can be on the map at once
+    [SerializeField] private float updateInterval = 0.5f;
+
+    private float updateTimer;
 
     public List<GameObject> ItemDrops { get { return itemDrops; } }
 
     public static GameManager Instance { get; private set; }
 
     [SyncObject] public readonly SyncList<ClientPlayer> players = new();
+    [SyncObject] public readonly SyncList<ClientPlayer> playersSortedByTime = new();
     [SyncObject] public readonly SyncList<Item> items = new();
-
-    ClientPlayer playerWLongestTime; // player with longest time
 
     private void Awake()
     {
@@ -29,23 +32,35 @@ public class GameManager : NetworkBehaviour
 
     private void Update()
     {
+        if (!IsServer) return;
+
         if(players.Count > 0)
         {
-            GetLongestTime();
+            UpdateTimer();
         }
     }
 
-    private void GetLongestTime()
+    private void UpdateTimer()
     {
-        float longestTime = 0;
+        updateTimer += Time.deltaTime;
 
-        for(int i = 0; i < players.Count; i++)
+        if(updateTimer >= updateInterval)
         {
-            if (players[i].LongestTime > longestTime)
-            {
-                playerWLongestTime = players[i];
-                longestTime = players[i].LongestTime;
-            }
+            updateTimer = 0;
+            UpdateLeaderboard();
+        }
+    }
+
+    private void UpdateLeaderboard()
+    {
+        string msg = "";
+
+        playersSortedByTime.Clear();
+
+        foreach(ClientPlayer player in players.OrderByDescending(p => p.LongestTime))
+        {
+            playersSortedByTime.Add(player);
+            //msg += player.Username + ": " + player.LongestTime.ToString() + " ";
         }
     }
 
@@ -54,6 +69,7 @@ public class GameManager : NetworkBehaviour
         if (!IsServer) return;
 
         cannon.AddBarrel(player);
+        players.Add(player);
     }
 
     [ObserversRpc]

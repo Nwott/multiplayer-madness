@@ -29,6 +29,7 @@ public class ClientPlayer : NetworkBehaviour
 
     public Item Item { get { return item; } }
 
+    public float CurrentTime { get { return currentTime; } }
     public float LongestTime { get { return longestTime; } }
 
     public string Username { get { return username; } }
@@ -161,9 +162,6 @@ public class ClientPlayer : NetworkBehaviour
         string message = username + " has joined the game.";
         Debug.Log(message);
         GameManager.Instance.DebugToClients(message);
-
-        // add player to players list in GameManager
-        GameManager.Instance.players.Add(this);
 
         health = maxHealth;
 
