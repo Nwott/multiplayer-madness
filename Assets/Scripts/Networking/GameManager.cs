@@ -62,8 +62,6 @@ public class GameManager : NetworkBehaviour
             playersSortedByTime.Add(player);
             //msg += player.Username + ": " + player.LongestTime.ToString() + " ";
         }
-
-        print(msg);
     }
 
     public void OnPlayerJoin(ClientPlayer player)
