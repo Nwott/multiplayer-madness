@@ -53,7 +53,7 @@ MonoBehaviour:
   cannonBarrel: {fileID: 3250681477134792191, guid: 010b61abb9efbd849b23837e5c0e318c,
     type: 3}
   barrelSpawnpoint: {fileID: 5051771261758746263}
-  waitTime: 0.5
+  waitTime: 0.2
   cycleInterval: 7
   afterShootTime: 2
 --- !u!114 &3572552035922302386

@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 9044952388557898230}
   - component: {fileID: 3813397337611029621}
   - component: {fileID: 7055198183768963573}
+  - component: {fileID: 7763212103259738904}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -385,6 +386,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5718341626411701019}
   _networkObjectCache: {fileID: 5718341626411701019}
   moveSpeed: 5
+  canMove: 1
 --- !u!114 &3813397337611029621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,6 +407,7 @@ MonoBehaviour:
   firepoint: {fileID: 3978630774075679806}
   model: {fileID: 8411214436937218821}
   cam: {fileID: 5435610187890755107}
+  freeze: {fileID: 7763212103259738904}
   maxHealth: 100
   itemDetectionRadius: 4
   username: 
@@ -436,6 +439,26 @@ MonoBehaviour:
   - {fileID: 462075043542321152}
   txtTimeAlive: {fileID: 6420843099510414151}
   txtPersonalBest: {fileID: 472034132643337570}
+--- !u!114 &7763212103259738904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782569849955040898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a569621117259916cb141b71b5a7e3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5718341626411701019}
+  _networkObjectCache: {fileID: 0}
+  playerMovement: {fileID: 9044952388557898230}
+  unfreezeNumber: 5
+  clientPlayer: {fileID: 3813397337611029621}
+  damage: 10
+  damageDelay: 0.5
 --- !u!1 &1795115039073178201
 GameObject:
   m_ObjectHideFlags: 0

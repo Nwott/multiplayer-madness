@@ -28,19 +28,19 @@ public class Snowball : Projectile
         if(Vector3.Distance(transform.position, TargetPlayer.transform.position) <= detectionRange)
         {
             // player in range
-            FreezePlayer();
+            FreezePlayer(Player);
             Despawn();
         }
     }
 
-    private void FreezePlayer()
+    private void FreezePlayer(ClientPlayer client)
     {
         // freeze player here...
         // create script called PlayerFreeze in Player script folder
         print("Player frozen.");
         //targetPlayer.GetComponent<PlayerFreeze>().Freeze();
 
-        FreezeClient(Player.Owner, Player);
+        FreezeClient(client.Owner, client);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,7 +50,7 @@ public class Snowball : Projectile
         if (other.CompareTag("Player"))
         {
             // player in range
-            FreezePlayer();
+            FreezePlayer(other.GetComponent<ClientPlayer>());
             Despawn();
         }
     }
