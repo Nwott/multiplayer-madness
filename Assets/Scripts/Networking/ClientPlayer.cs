@@ -15,6 +15,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private GameObject model;
     [SerializeField] private Camera cam;
     [SerializeField] private PlayerFreeze freeze;
+    [SerializeField] private UserInterface userInterface;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -52,6 +53,8 @@ public class ClientPlayer : NetworkBehaviour
     public string Username { get { return username; } }
 
     public GameObject HoldObject { get { return holdObject; } }
+    
+    public int MaxHealth { get { return maxHealth; } }
 
     public override void OnOwnershipClient(NetworkConnection prevOwner)
     {
@@ -119,14 +122,20 @@ public class ClientPlayer : NetworkBehaviour
                 Item heldItem = closestItem.GetComponent<Item>();
                 GameManager.Instance.OnItemPickup(this, heldItem, holdObject);
                 item = heldItem;
+
+                userInterface.UpdateItemSlot(heldItem.ItemSO);
             }
         }
     }
 
     public void UseItem()
     {
-        item.Firepoint = firepoint.transform;
-        item.Perform();
+        if(IsOwner)
+        {
+            item.Firepoint = firepoint.transform;
+            item.Perform();
+            userInterface.UpdateItemSlot(null);
+        }
     }
 
     private Collider GetClosestItem(Collider[] colliders)
@@ -190,6 +199,7 @@ public class ClientPlayer : NetworkBehaviour
     {
         health += change;
         health = Mathf.Clamp(health, 0, maxHealth);
+        userInterface.UpdateHealthBar(health, maxHealth);
     }
 
     [ServerRpc]

@@ -7,5 +7,6 @@ public class ItemScriptableObject : ScriptableObject
 {
     public string itemName;
     [TextArea] public string description;
+    public Sprite itemIcon;
     public bool throwable;
 }

@@ -167,6 +167,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Unfreeze"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cc5d76ee-3344-4839-81b1-d3ccd091d820"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Unfreeze"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },

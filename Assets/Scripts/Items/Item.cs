@@ -25,6 +25,8 @@ public class Item : NetworkBehaviour
     
     public Transform Firepoint { get { return firepoint; } set { firepoint = value; } }
 
+    public ItemScriptableObject ItemSO { get { return itemSO; } }
+
     public virtual void Perform()
     {
         if(itemSO.throwable)

@@ -14,6 +14,11 @@ public class UserInterface : NetworkBehaviour
     [SerializeField] private List<TextMeshProUGUI> lbTimes = new();
     [SerializeField] private TextMeshProUGUI txtTimeAlive;
     [SerializeField] private TextMeshProUGUI txtPersonalBest;
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private Image itemIcon;
+    [SerializeField] private TextMeshProUGUI txtItemName;
+    [SerializeField] private TextMeshProUGUI txtItemDescription;
+    [SerializeField] private ItemScriptableObject emptyItem;
 
     private void Update()
     {
@@ -66,5 +71,33 @@ public class UserInterface : NetworkBehaviour
         msg = mins + "mins " + seconds + "s";
 
         return msg;
+    }
+
+    public void UpdateHealthBar(int health, int maxHealth)
+    {
+        healthBar.value = (float)health / (float)maxHealth;
+    }
+
+    public void UpdateItemSlot(ItemScriptableObject itemSO)
+    {
+        // when player uses an item
+        if (itemSO == null)
+        {
+            itemSO = emptyItem;
+        }
+
+        // reset item icon if possible
+        if (itemIcon.sprite != null)
+        {
+            itemIcon.sprite = null;
+        }
+
+        txtItemName.SetText(itemSO.itemName);
+        txtItemDescription.SetText(itemSO.description);
+
+        if(itemSO.itemIcon != null)
+        {
+            itemIcon.sprite = itemSO.itemIcon;
+        }
     }
 }
