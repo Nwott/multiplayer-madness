@@ -9,14 +9,18 @@ using FishNet.Object;
 public class UserInterface : NetworkBehaviour
 {
     [Header("References")]
+    [SerializeField] private ClientPlayer clientPlayer;
     [SerializeField] private List<TextMeshProUGUI> lbUsernames = new();
     [SerializeField] private List<TextMeshProUGUI> lbTimes = new();
+    [SerializeField] private TextMeshProUGUI txtTimeAlive;
+    [SerializeField] private TextMeshProUGUI txtPersonalBest;
 
     private void Update()
     {
         if(IsOwner)
         {
             UpdateLeaderboard();
+            UpdateTimes();
         }
     }
 
@@ -31,6 +35,12 @@ public class UserInterface : NetworkBehaviour
             }
             catch { }
         }
+    }
+
+    private void UpdateTimes()
+    {
+        txtTimeAlive.SetText("Time Alive: " + ConvertTime(clientPlayer.CurrentTime));
+        txtPersonalBest.SetText("Personal Best: " + ConvertTime(clientPlayer.LongestTime));
     }
 
     // converts seconds to mins and seconds

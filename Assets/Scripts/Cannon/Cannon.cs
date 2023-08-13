@@ -92,6 +92,14 @@ public class Cannon : NetworkBehaviour
         // rotates barrels towards players
         for (int i = 0; i < barrelData.Count; i++)
         {
+            // if player disconnected, then remove their barrel
+            if (barrelData[i].Player == null)
+            {
+                Despawn(barrelData[i].Barrel.gameObject);
+                barrelData.Remove(barrelData[i]);
+                continue;
+            }
+
             barrelData[i].Barrel.gameObject.SetActive(true);
             RefreshBarrelActive(barrelData[i].Barrel.gameObject, true);
 

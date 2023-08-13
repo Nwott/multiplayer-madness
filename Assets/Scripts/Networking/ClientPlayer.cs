@@ -29,6 +29,7 @@ public class ClientPlayer : NetworkBehaviour
 
     public Item Item { get { return item; } }
 
+    public float CurrentTime { get { return currentTime; } }
     public float LongestTime { get { return longestTime; } }
 
     public string Username { get { return username; } }
