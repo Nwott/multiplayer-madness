@@ -162,9 +162,6 @@ public class ClientPlayer : NetworkBehaviour
         Debug.Log(message);
         GameManager.Instance.DebugToClients(message);
 
-        // add player to players list in GameManager
-        GameManager.Instance.players.Add(this);
-
         health = maxHealth;
 
         GameManager.Instance.OnPlayerJoin(this);
