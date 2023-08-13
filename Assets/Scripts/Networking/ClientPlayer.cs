@@ -122,14 +122,20 @@ public class ClientPlayer : NetworkBehaviour
                 Item heldItem = closestItem.GetComponent<Item>();
                 GameManager.Instance.OnItemPickup(this, heldItem, holdObject);
                 item = heldItem;
+
+                userInterface.UpdateItemSlot(heldItem.ItemSO);
             }
         }
     }
 
     public void UseItem()
     {
-        item.Firepoint = firepoint.transform;
-        item.Perform();
+        if(IsOwner)
+        {
+            item.Firepoint = firepoint.transform;
+            item.Perform();
+            userInterface.UpdateItemSlot(null);
+        }
     }
 
     private Collider GetClosestItem(Collider[] colliders)
