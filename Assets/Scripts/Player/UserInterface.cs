@@ -14,6 +14,7 @@ public class UserInterface : NetworkBehaviour
     [SerializeField] private List<TextMeshProUGUI> lbTimes = new();
     [SerializeField] private TextMeshProUGUI txtTimeAlive;
     [SerializeField] private TextMeshProUGUI txtPersonalBest;
+    [SerializeField] private Slider healthBar;
 
     private void Update()
     {
@@ -66,5 +67,10 @@ public class UserInterface : NetworkBehaviour
         msg = mins + "mins " + seconds + "s";
 
         return msg;
+    }
+
+    public void UpdateHealthBar(int health, int maxHealth)
+    {
+        healthBar.value = (float)health / (float)maxHealth;
     }
 }
