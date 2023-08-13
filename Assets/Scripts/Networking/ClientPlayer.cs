@@ -188,7 +188,6 @@ public class ClientPlayer : NetworkBehaviour
     public void ChangeHealth(int change)
     {
         health += change;
-        print(health);
     }
 
     [ServerRpc]

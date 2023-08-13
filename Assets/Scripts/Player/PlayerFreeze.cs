@@ -33,7 +33,6 @@ public class PlayerFreeze : NetworkBehaviour
                 damageTimer = 0;
                 clientPlayer.ChangeHealth(-damage);
             }
-            print(playerMovement.canMove);
         }
     }
 
@@ -45,7 +44,6 @@ public class PlayerFreeze : NetworkBehaviour
         }
         else
         {
-            print("Doin the freeze thing");
             isFrozen = true;
             unfreezeCount = 0;
             playerMovement.canMove = false;
@@ -59,7 +57,7 @@ public class PlayerFreeze : NetworkBehaviour
         if (isFrozen)
         {
             unfreezeCount++;
-            print(unfreezeCount);
+            print(unfreezeCount+" e clicks and "+unfreezeNumber+" needed");
             if (unfreezeCount >= unfreezeNumber)
             {
                 isFrozen = false;
