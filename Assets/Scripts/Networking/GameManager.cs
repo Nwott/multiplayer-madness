@@ -10,6 +10,7 @@ public class GameManager : NetworkBehaviour
     [Header("References")]
     [SerializeField] private Cannon cannon;
     [SerializeField] private List<GameObject> itemDrops = new();
+    [SerializeField] private GameObject overheadUI;
 
     [Header("Settings")]
     [SerializeField] private int maxItems = 5; // max amount of items that can be on the map at once
@@ -70,6 +71,17 @@ public class GameManager : NetworkBehaviour
 
         cannon.AddBarrel(player);
         players.Add(player);
+
+        GameObject overhead = SpawnObject(overheadUI, player.OverheadUIPosition, Quaternion.identity, player.transform);
+        OverheadUI overheadScript = overhead.GetComponent<OverheadUI>();
+        overheadScript.UpdateUsername(player.Username);
+        overheadScript.InitializeOnClients(player.Username);
+        overheadScript.ClientPlayer = player;
+
+        for(int i = 0; i < players.Count; i++)
+        {
+            players[i].GetComponentInChildren<OverheadUI>().InitializeOnClients(players[i].Username);
+        }
     }
 
     [ObserversRpc]

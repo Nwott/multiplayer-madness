@@ -416,7 +416,10 @@ MonoBehaviour:
   cannon: {fileID: 5569298646238179512}
   itemDrops:
   - {fileID: 6432767970490893840, guid: 3777c48547be22b4385f074144d83817, type: 3}
+  overheadUI: {fileID: 5332975603944832894, guid: 6713614f079cc0e48af1f9fbe49c0916,
+    type: 3}
   maxItems: 50
+  updateInterval: 0.5
 --- !u!4 &1213037442
 Transform:
   m_ObjectHideFlags: 0

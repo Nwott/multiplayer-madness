@@ -78,6 +78,13 @@ public class UserInterface : NetworkBehaviour
         healthBar.value = (float)health / (float)maxHealth;
     }
 
+    [ObserversRpc]
+    public void UpdateHealthBarOnClients(int health, int maxHealth)
+    {
+        if (IsServer) return;
+        UpdateHealthBar(health, maxHealth);
+    }
+
     public void UpdateItemSlot(ItemScriptableObject itemSO)
     {
         // when player uses an item

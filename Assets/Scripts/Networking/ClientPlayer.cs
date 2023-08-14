@@ -16,6 +16,8 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private PlayerFreeze freeze;
     [SerializeField] private UserInterface userInterface;
+    [SerializeField] private OverheadUI overheadUI;
+    [SerializeField] private Transform overheadUITransform;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -55,6 +57,11 @@ public class ClientPlayer : NetworkBehaviour
     public GameObject HoldObject { get { return holdObject; } }
     
     public int MaxHealth { get { return maxHealth; } }
+    public int Health { get { return health; } }
+
+    public OverheadUI Overhead { get { return overheadUI; } set { overheadUI = value; } }
+
+    public Vector3 OverheadUIPosition { get { return overheadUITransform.position; } }
 
     public override void OnOwnershipClient(NetworkConnection prevOwner)
     {
@@ -65,7 +72,8 @@ public class ClientPlayer : NetworkBehaviour
             Initialize(PlayerPrefs.GetString("Username"));
             ownerObjects.SetActive(true);
         }
-    }
+    } 
+    
 
     private void Update()
     {
@@ -200,6 +208,7 @@ public class ClientPlayer : NetworkBehaviour
         health += change;
         health = Mathf.Clamp(health, 0, maxHealth);
         userInterface.UpdateHealthBar(health, maxHealth);
+        userInterface.UpdateHealthBarOnClients(health, maxHealth);
     }
 
     [ServerRpc]
