@@ -692,6 +692,7 @@ MonoBehaviour:
   username: 
   health: 0
   longestTime: 0
+  frozen: 0
 --- !u!114 &7055198183768963573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,7 +743,7 @@ MonoBehaviour:
   clientPlayer: {fileID: 3813397337611029621}
   unfreezeNumber: 5
   damage: 5
-  damageDelay: 1
+  damageDelay: 0.25
 --- !u!1 &1795115039073178201
 GameObject:
   m_ObjectHideFlags: 0
