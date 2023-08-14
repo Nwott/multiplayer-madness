@@ -72,7 +72,7 @@ public class GameManager : NetworkBehaviour
         cannon.AddBarrel(player);
         players.Add(player);
 
-        GameObject overhead = SpawnObject(overheadUI, player.OverheadUIPosition, Quaternion.identity, player.transform);
+        GameObject overhead = SpawnObject(overheadUI, player.OverheadUIPosition, player.OverheadUIRotation, player.transform);
         OverheadUI overheadScript = overhead.GetComponent<OverheadUI>();
         overheadScript.UpdateUsername(player.Username);
         overheadScript.InitializeOnClients(player.Username);

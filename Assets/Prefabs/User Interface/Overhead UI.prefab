@@ -364,7 +364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2.54}
+  m_AnchoredPosition: {x: 0, y: 2.539978}
   m_SizeDelta: {x: 3, y: 0.71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &9140885707851258021
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2704186628681801053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,9 +445,9 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 7959536501513656691}
   _networkObjectCache: {fileID: 7959536501513656691}
-  clientPlayer: {fileID: 0}
   txtUsername: {fileID: 8497800157251612296}
   healthbar: {fileID: 5300342134412842128}
+  clientPlayer: {fileID: 0}
 --- !u!114 &7959536501513656691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,14 +461,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 1975983180394298305}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0, y: 2.54, z: 0}
+    Position: {x: -960, y: -537.46, z: 0}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 2, y: 2, z: 2}
   _isNetworked: 1

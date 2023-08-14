@@ -62,6 +62,7 @@ public class ClientPlayer : NetworkBehaviour
     public OverheadUI Overhead { get { return overheadUI; } set { overheadUI = value; } }
 
     public Vector3 OverheadUIPosition { get { return overheadUITransform.position; } }
+    public Quaternion OverheadUIRotation { get { return overheadUITransform.rotation; } }
 
     public override void OnOwnershipClient(NetworkConnection prevOwner)
     {
