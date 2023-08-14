@@ -136,7 +136,7 @@ public class Cannon : NetworkBehaviour
     {
         if (GameManager.Instance.ItemDrops.Count <= 0) return;
 
-        GameObject randomItem = GameManager.Instance.ItemDrops[Random.Range(0, GameManager.Instance.ItemDrops.Count - 1)];
+        GameObject randomItem = GameManager.Instance.ItemDrops[Random.Range(0, GameManager.Instance.ItemDrops.Count)];
 
         GameObject itemObj = GameManager.Instance.SpawnObject(randomItem, position, Quaternion.identity, null);
         GameManager.Instance.AddItemToList(itemObj.GetComponent<Item>());
