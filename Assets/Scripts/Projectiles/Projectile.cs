@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 
 public class Projectile : NetworkBehaviour
 {
@@ -14,7 +15,7 @@ public class Projectile : NetworkBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float despawnRange = 0.3f;
 
-    protected ClientPlayer player;
+    [SyncVar] protected ClientPlayer player;
 
     public ClientPlayer Player { get { return player; } set { player = value; } }
 

@@ -47,6 +47,8 @@ public class Snowball : Projectile
     {
         if (targetPlayer != null) return;
 
+        print(Player.Username);
+
         if (other.CompareTag("Player") && other != Player)
         {
             // player in range
