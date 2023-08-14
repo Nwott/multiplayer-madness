@@ -4,6 +4,7 @@ using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Linq;
+using FishNet.Connection;
 
 public class GameManager : NetworkBehaviour
 {
@@ -55,13 +56,22 @@ public class GameManager : NetworkBehaviour
     private void UpdateLeaderboard()
     {
         string msg = "";
+        int index = -1;
 
         playersSortedByTime.Clear();
 
         foreach(ClientPlayer player in players.OrderByDescending(p => p.LongestTime))
         {
+            index++;
+
+            // detect if player has left
+            if (player == null)
+            {
+                OnPlayerLeave(index);
+                continue;
+            }
+
             playersSortedByTime.Add(player);
-            //msg += player.Username + ": " + player.LongestTime.ToString() + " ";
         }
     }
 
@@ -82,6 +92,12 @@ public class GameManager : NetworkBehaviour
         {
             players[i].GetComponentInChildren<OverheadUI>().InitializeOnClients(players[i].Username);
         }
+    }
+
+    // if player leaves, then remove them from list
+    public void OnPlayerLeave(int index)
+    {
+        players.RemoveAt(index);
     }
 
     [ObserversRpc]
