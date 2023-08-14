@@ -16,6 +16,9 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private PlayerFreeze freeze;
     [SerializeField] private UserInterface userInterface;
+    [SerializeField] private OverheadUI overheadUI;
+    [SerializeField] private Transform overheadUITransform;
+    [SerializeField] private PlayerMovement movement;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -29,19 +32,14 @@ public class ClientPlayer : NetworkBehaviour
 
     private Item item;
 
-    private bool frozen;
+    [SyncVar(OnChange = nameof(on_frozen))][HideInInspector] private bool frozen;
 
     public bool Frozen 
     { 
         get { return frozen; } 
         set 
-        { 
-            frozen = value; 
-
-            if(frozen)
-            {
-                freeze.Freeze();
-            }
+        {
+            frozen = value;
         } 
     }
 
@@ -55,6 +53,13 @@ public class ClientPlayer : NetworkBehaviour
     public GameObject HoldObject { get { return holdObject; } }
     
     public int MaxHealth { get { return maxHealth; } }
+    public int Health { get { return health; } }
+
+    public OverheadUI Overhead { get { return overheadUI; } set { overheadUI = value; } }
+
+    public Vector3 OverheadUIPosition { get { return overheadUITransform.position; } }
+    public Quaternion OverheadUIRotation { get { return overheadUITransform.rotation; } }
+    public PlayerMovement Movement { get { return movement; } }
 
     public override void OnOwnershipClient(NetworkConnection prevOwner)
     {
@@ -65,7 +70,8 @@ public class ClientPlayer : NetworkBehaviour
             Initialize(PlayerPrefs.GetString("Username"));
             ownerObjects.SetActive(true);
         }
-    }
+    } 
+    
 
     private void Update()
     {
@@ -103,9 +109,25 @@ public class ClientPlayer : NetworkBehaviour
         }
     }
 
+    // run by server
     private void Death()
     {
         currentTime = 0;
+        GameManager.Instance.OnPlayerDeath(this);
+
+        if(IsServer)
+        {
+            ResetTime();
+        }
+    }
+
+    [ObserversRpc]
+    private void ResetTime()
+    {
+        if(IsOwner)
+        {
+            currentTime = 0;
+        }
     }
 
     // for picking up items
@@ -113,7 +135,7 @@ public class ClientPlayer : NetworkBehaviour
     {
         if (item != null) return; // if player is already holding item, don't run code
 
-        if(IsOwner)
+        if(IsOwner && !frozen)
         {
             Collider closestItem = GetClosestItem(Physics.OverlapSphere(transform.position, itemDetectionRadius));
 
@@ -130,12 +152,30 @@ public class ClientPlayer : NetworkBehaviour
 
     public void UseItem()
     {
-        if(IsOwner)
+        if(IsOwner && !frozen)
         {
             item.Firepoint = firepoint.transform;
             item.Perform();
             userInterface.UpdateItemSlot(null);
         }
+    }
+
+    private void on_frozen(bool prev, bool next, bool asServer)
+    {
+
+        if(next == true)
+        {
+            freeze.Freeze();
+        }
+        else
+        {
+            freeze.Unfreeze();
+        }
+    }
+
+    public void SpawnPlayer(Vector3 position)
+    {
+        transform.localPosition = position;
     }
 
     private Collider GetClosestItem(Collider[] colliders)
@@ -200,6 +240,20 @@ public class ClientPlayer : NetworkBehaviour
         health += change;
         health = Mathf.Clamp(health, 0, maxHealth);
         userInterface.UpdateHealthBar(health, maxHealth);
+        userInterface.UpdateHealthBarOnClients(health, maxHealth);
+
+        if(health <= 0)
+        {
+            Death();
+        }
+    }
+
+    public void ResetHealth()
+    {
+        if(IsServer)
+        {
+            health = MaxHealth;
+        }
     }
 
     [ServerRpc]

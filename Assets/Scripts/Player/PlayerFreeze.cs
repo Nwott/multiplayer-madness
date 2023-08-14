@@ -8,14 +8,18 @@ using FishNet.Connection;
 
 public class PlayerFreeze : NetworkBehaviour
 {
+    [Header("References")]
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private int unfreezeNumber;
     [SerializeField] private ClientPlayer clientPlayer;
+
+    [Header("Settings")]
+    [SerializeField] private int unfreezeNumber;
     [SerializeField] private int damage;
     [SerializeField] private float damageDelay;
+
     private float damageTimer;
     private int unfreezeCount;
-    bool isFrozen = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +29,7 @@ public class PlayerFreeze : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isFrozen)
+        if (clientPlayer.Frozen && IsOwner)
         {
             damageTimer += Time.deltaTime;
             if (damageTimer >= damageDelay)
@@ -38,31 +42,32 @@ public class PlayerFreeze : NetworkBehaviour
 
     public void Freeze()
     {
-        if (isFrozen)
-        {
-            //do nothing
-        }
-        else
-        {
-            isFrozen = true;
-            unfreezeCount = 0;
-            playerMovement.canMove = false;
-            damageTimer = 0;
-
-        }
+        unfreezeCount = 0;
+        playerMovement.CanMove = false;
+        damageTimer = 0;
     }
 
     public void PartialUnfreeze()
     {
-        if (isFrozen)
+        if (clientPlayer.Frozen && IsOwner)
         {
             unfreezeCount++;
             print(unfreezeCount+" e clicks and "+unfreezeNumber+" needed");
             if (unfreezeCount >= unfreezeNumber)
             {
-                isFrozen = false;
-                playerMovement.canMove = true;
+                UnfreezeOnServer(clientPlayer);
             }
         }
+    }
+
+    public void Unfreeze()
+    {
+        playerMovement.CanMove = true;
+    }
+
+    [ServerRpc]
+    private void UnfreezeOnServer(ClientPlayer player)
+    {
+        player.Frozen = false;
     }
 }

@@ -17,7 +17,7 @@ public class Item : NetworkBehaviour
 
     private bool itemHeld;
 
-    private ClientPlayer player;
+    [SyncVar][HideInInspector] private ClientPlayer player;
 
     public ClientPlayer Player { get { return player; } set { player = value; } }
 

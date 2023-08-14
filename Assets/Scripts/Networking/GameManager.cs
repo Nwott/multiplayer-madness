@@ -4,12 +4,17 @@ using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Linq;
+using FishNet.Connection;
+using FishNet.Component.Spawning;
 
 public class GameManager : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private Cannon cannon;
     [SerializeField] private List<GameObject> itemDrops = new();
+    [SerializeField] private GameObject overheadUI;
+
+    private PlayerSpawner playerSpawner;
 
     [Header("Settings")]
     [SerializeField] private int maxItems = 5; // max amount of items that can be on the map at once
@@ -28,6 +33,11 @@ public class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        playerSpawner = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<PlayerSpawner>();
     }
 
     private void Update()
@@ -54,13 +64,22 @@ public class GameManager : NetworkBehaviour
     private void UpdateLeaderboard()
     {
         string msg = "";
+        int index = -1;
 
         playersSortedByTime.Clear();
 
         foreach(ClientPlayer player in players.OrderByDescending(p => p.LongestTime))
         {
+            index++;
+
+            // detect if player has left
+            if (player == null)
+            {
+                OnPlayerLeave(index);
+                continue;
+            }
+
             playersSortedByTime.Add(player);
-            //msg += player.Username + ": " + player.LongestTime.ToString() + " ";
         }
     }
 
@@ -70,6 +89,24 @@ public class GameManager : NetworkBehaviour
 
         cannon.AddBarrel(player);
         players.Add(player);
+
+        // spawn and setup overheadUI
+        GameObject overhead = SpawnObject(overheadUI, player.OverheadUIPosition, player.OverheadUIRotation, player.transform);
+        OverheadUI overheadScript = overhead.GetComponent<OverheadUI>();
+        overheadScript.UpdateUsername(player.Username);
+        overheadScript.InitializeOnClients(player.Username);
+        overheadScript.ClientPlayer = player;
+
+        for(int i = 0; i < players.Count; i++)
+        {
+            players[i].GetComponentInChildren<OverheadUI>().InitializeOnClients(players[i].Username);
+        }
+    }
+
+    // if player leaves, then remove them from list
+    public void OnPlayerLeave(int index)
+    {
+        players.RemoveAt(index);
     }
 
     [ObserversRpc]
@@ -86,6 +123,28 @@ public class GameManager : NetworkBehaviour
         Spawn(go);
 
         return go;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void OnPlayerDeath(ClientPlayer player)
+    {
+        player.ResetHealth();
+        player.Frozen = false;
+        player.Movement.CanMove = true;
+
+        // random spawn location
+        Vector3 spawnLocation = playerSpawner.Spawns[Random.Range(0, playerSpawner.Spawns.Length - 1)].position;
+
+        player.Movement.Controller.Move(spawnLocation - player.transform.position);
+
+        OnPlayerDeathClient(true, player.Movement, player);
+    }
+
+    [ObserversRpc]
+    private void OnPlayerDeathClient(bool enabled, PlayerMovement movement, ClientPlayer player)
+    {
+        movement.CanMove = enabled;
+        player.Frozen = false;
     }
 
     [ServerRpc]

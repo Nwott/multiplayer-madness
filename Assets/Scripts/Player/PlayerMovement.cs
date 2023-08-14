@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private float moveSpeed = 5f;
+    private bool canMove = true;
+
+    public bool CanMove { get { return canMove; } set { canMove = value; } }
+
     Vector2 hInput;
     CharacterController controller;
-    [SerializeField] private float moveSpeed = 5f;
-    public bool canMove = true;
+
+    public CharacterController Controller { get { return controller; } }
+
     // Start is called before the first frame update
     void Start()
     {

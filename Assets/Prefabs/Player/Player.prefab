@@ -517,6 +517,7 @@ Transform:
   m_Children:
   - {fileID: 4155086856464650805}
   - {fileID: 3148954567521632805}
+  - {fileID: 6358139580490040924}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5718341626411701019
@@ -661,7 +662,6 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5718341626411701019}
   _networkObjectCache: {fileID: 5718341626411701019}
   moveSpeed: 5
-  canMove: 1
 --- !u!114 &3813397337611029621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,6 +684,9 @@ MonoBehaviour:
   cam: {fileID: 5435610187890755107}
   freeze: {fileID: 7763212103259738904}
   userInterface: {fileID: 7055198183768963573}
+  overheadUI: {fileID: 0}
+  overheadUITransform: {fileID: 6358139580490040924}
+  movement: {fileID: 9044952388557898230}
   maxHealth: 100
   itemDetectionRadius: 4
   username: 
@@ -736,8 +739,8 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5718341626411701019}
   _networkObjectCache: {fileID: 5718341626411701019}
   playerMovement: {fileID: 9044952388557898230}
-  unfreezeNumber: 5
   clientPlayer: {fileID: 3813397337611029621}
+  unfreezeNumber: 5
   damage: 5
   damageDelay: 1
 --- !u!1 &1795115039073178201
@@ -1053,6 +1056,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3509427694613830726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6358139580490040924}
+  m_Layer: 0
+  m_Name: OverheadUITransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6358139580490040924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3509427694613830726}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.12856793, y: -0, z: -0, w: 0.99170077}
+  m_LocalPosition: {x: 0, y: 1.85, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4865602302702749260}
+  m_LocalEulerAnglesHint: {x: 14.774, y: 0, z: 0}
 --- !u!1 &3556876836471698052
 GameObject:
   m_ObjectHideFlags: 0

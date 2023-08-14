@@ -15,5 +15,6 @@ public class Fish : Item
         base.Use();
 
         Player.ChangeHealth(amountToHeal);
+        IsDone();
     }
 }

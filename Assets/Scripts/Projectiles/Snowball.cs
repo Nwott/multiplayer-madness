@@ -40,7 +40,7 @@ public class Snowball : Projectile
         print("Player frozen.");
         //targetPlayer.GetComponent<PlayerFreeze>().Freeze();
 
-        FreezeClient(client.Owner, client);
+        FreezeClient(client);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,8 +55,7 @@ public class Snowball : Projectile
         }
     }
 
-    [TargetRpc]
-    private void FreezeClient(NetworkConnection conn, ClientPlayer player)
+    private void FreezeClient(ClientPlayer player)
     {
         player.Frozen = true;
     }
