@@ -47,7 +47,7 @@ public class Snowball : Projectile
     {
         if (targetPlayer != null) return;
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other != Player)
         {
             // player in range
             FreezePlayer(other.GetComponent<ClientPlayer>());

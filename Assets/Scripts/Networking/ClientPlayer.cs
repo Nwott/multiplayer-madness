@@ -144,6 +144,7 @@ public class ClientPlayer : NetworkBehaviour
                 Item heldItem = closestItem.GetComponent<Item>();
                 GameManager.Instance.OnItemPickup(this, heldItem, holdObject);
                 item = heldItem;
+                heldItem.Player = this;
 
                 userInterface.UpdateItemSlot(heldItem.ItemSO);
             }
