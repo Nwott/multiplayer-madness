@@ -45,6 +45,7 @@ public class Snowball : Projectile
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!IsServer) return;
         if (targetPlayer != null) return;
 
         print(Player.Username);
