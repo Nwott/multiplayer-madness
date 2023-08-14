@@ -15,6 +15,8 @@ public class PlayerMovement : NetworkBehaviour
     Vector2 hInput;
     CharacterController controller;
 
+    public CharacterController Controller { get { return controller; } }
+
     // Start is called before the first frame update
     void Start()
     {

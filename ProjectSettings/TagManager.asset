@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Item
   - Cannon
+  - NetworkManager
   layers:
   - Default
   - TransparentFX

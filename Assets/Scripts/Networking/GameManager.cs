@@ -5,6 +5,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Linq;
 using FishNet.Connection;
+using FishNet.Component.Spawning;
 
 public class GameManager : NetworkBehaviour
 {
@@ -12,13 +13,12 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private Cannon cannon;
     [SerializeField] private List<GameObject> itemDrops = new();
     [SerializeField] private GameObject overheadUI;
-    [SerializeField] private GameObject spawner;
+
+    private PlayerSpawner playerSpawner;
 
     [Header("Settings")]
     [SerializeField] private int maxItems = 5; // max amount of items that can be on the map at once
     [SerializeField] private float updateInterval = 0.5f;
-    [SerializeField] private Vector2 spawnRadius;
-    [SerializeField] private float spawnDistFromCannon = 7f; // distance away from cannon to spawn player
 
     private float updateTimer;
 
@@ -33,6 +33,11 @@ public class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        playerSpawner = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<PlayerSpawner>();
     }
 
     private void Update()
@@ -96,60 +101,12 @@ public class GameManager : NetworkBehaviour
         {
             players[i].GetComponentInChildren<OverheadUI>().InitializeOnClients(players[i].Username);
         }
-
-        // move player to random spawn point
-        SpawnPlayer(player);
     }
 
     // if player leaves, then remove them from list
     public void OnPlayerLeave(int index)
     {
         players.RemoveAt(index);
-    }
-
-    private void SpawnPlayer(ClientPlayer player)
-    {
-        SpawnPlayerClient(player, GetRandomPosition());
-    }
-
-    [ObserversRpc]
-    private void SpawnPlayerClient(ClientPlayer player, Vector3 position)
-    {
-        if(IsOwner)
-        {
-            player.SpawnPlayer(position);
-        }
-    }
-
-    private Vector3 GetRandomPosition()
-    {
-        float x = Random.Range(spawnRadius.x, spawnRadius.y);
-        float y = 50;
-        float z = Random.Range(spawnRadius.x, spawnRadius.y);
-
-        Vector3 position = new Vector3(x, y, z);
-        spawner.transform.position = position;
-
-        RaycastHit hit;
-        Vector3 point = Vector3.zero;
-
-        if(Physics.Raycast(position, Vector3.down, out hit, 100))
-        {
-            point = hit.point;
-        }
-
-        Collider[] colliders = Physics.OverlapSphere(point, spawnDistFromCannon);
-
-        for(int i = 0; i < colliders.Length; i++)
-        {
-            // spawn position is too close to cannon
-            if (colliders[i].CompareTag("Cannon"))
-            {
-                return GetRandomPosition();
-            }
-        }
-
-        return new Vector3(point.x, 0.5f, point.z);
     }
 
     [ObserversRpc]
@@ -174,6 +131,12 @@ public class GameManager : NetworkBehaviour
         player.ResetHealth();
         player.Frozen = false;
         player.Movement.CanMove = true;
+
+        // random spawn location
+        Vector3 spawnLocation = playerSpawner.Spawns[Random.Range(0, playerSpawner.Spawns.Length - 1)].position;
+
+        player.Movement.Controller.Move(spawnLocation - player.transform.position);
+
         OnPlayerDeathClient(true, player.Movement, player);
     }
 
