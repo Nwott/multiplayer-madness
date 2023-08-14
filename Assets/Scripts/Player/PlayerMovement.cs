@@ -8,7 +8,7 @@ public class PlayerMovement : NetworkBehaviour
 {
     [Header("Settings")]
     [SerializeField] private float moveSpeed = 5f;
-    [SyncVar][HideInInspector] private bool canMove = true;
+    private bool canMove = true;
 
     public bool CanMove { get { return canMove; } set { canMove = value; } }
 
@@ -24,8 +24,6 @@ public class PlayerMovement : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Can Move: " + canMove);
-
         if(IsOwner && canMove)
         {
             controller.Move(new Vector3(hInput.x * moveSpeed * Time.deltaTime, 0, hInput.y * moveSpeed * Time.deltaTime));

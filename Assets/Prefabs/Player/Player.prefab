@@ -662,7 +662,6 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5718341626411701019}
   _networkObjectCache: {fileID: 5718341626411701019}
   moveSpeed: 5
-  canMove: 1
 --- !u!114 &3813397337611029621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,6 +686,7 @@ MonoBehaviour:
   userInterface: {fileID: 7055198183768963573}
   overheadUI: {fileID: 0}
   overheadUITransform: {fileID: 6358139580490040924}
+  movement: {fileID: 9044952388557898230}
   maxHealth: 100
   itemDetectionRadius: 4
   username: 
@@ -739,8 +739,8 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5718341626411701019}
   _networkObjectCache: {fileID: 5718341626411701019}
   playerMovement: {fileID: 9044952388557898230}
-  unfreezeNumber: 5
   clientPlayer: {fileID: 3813397337611029621}
+  unfreezeNumber: 5
   damage: 5
   damageDelay: 1
 --- !u!1 &1795115039073178201

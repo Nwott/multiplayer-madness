@@ -121,6 +121,15 @@ public class GameManager : NetworkBehaviour
     {
         player.ResetHealth();
         player.Frozen = false;
+        player.Movement.CanMove = true;
+        OnPlayerDeathClient(true, player.Movement, player);
+    }
+
+    [ObserversRpc]
+    private void OnPlayerDeathClient(bool enabled, PlayerMovement movement, ClientPlayer player)
+    {
+        movement.CanMove = enabled;
+        player.Frozen = false;
     }
 
     [ServerRpc]

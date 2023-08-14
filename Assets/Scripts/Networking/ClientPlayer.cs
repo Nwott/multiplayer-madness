@@ -18,6 +18,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private UserInterface userInterface;
     [SerializeField] private OverheadUI overheadUI;
     [SerializeField] private Transform overheadUITransform;
+    [SerializeField] private PlayerMovement movement;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -31,23 +32,14 @@ public class ClientPlayer : NetworkBehaviour
 
     private Item item;
 
-    [SyncVar][HideInInspector] private bool frozen;
+    [SyncVar(OnChange = nameof(on_frozen))][HideInInspector] private bool frozen;
 
     public bool Frozen 
     { 
         get { return frozen; } 
         set 
         {
-            if(value == true)
-            {
-                freeze.Freeze();
-                frozen = value;
-            }
-            else
-            {
-                freeze.Unfreeze();
-                frozen = value;
-            }
+            frozen = value;
         } 
     }
 
@@ -67,6 +59,7 @@ public class ClientPlayer : NetworkBehaviour
 
     public Vector3 OverheadUIPosition { get { return overheadUITransform.position; } }
     public Quaternion OverheadUIRotation { get { return overheadUITransform.rotation; } }
+    public PlayerMovement Movement { get { return movement; } }
 
     public override void OnOwnershipClient(NetworkConnection prevOwner)
     {
@@ -164,6 +157,19 @@ public class ClientPlayer : NetworkBehaviour
             item.Firepoint = firepoint.transform;
             item.Perform();
             userInterface.UpdateItemSlot(null);
+        }
+    }
+
+    private void on_frozen(bool prev, bool next, bool asServer)
+    {
+
+        if(next == true)
+        {
+            freeze.Freeze();
+        }
+        else
+        {
+            freeze.Unfreeze();
         }
     }
 

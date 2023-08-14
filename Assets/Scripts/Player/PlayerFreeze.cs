@@ -42,8 +42,6 @@ public class PlayerFreeze : NetworkBehaviour
 
     public void Freeze()
     {
-        if (clientPlayer.Frozen) return;
-
         unfreezeCount = 0;
         playerMovement.CanMove = false;
         damageTimer = 0;
@@ -51,13 +49,13 @@ public class PlayerFreeze : NetworkBehaviour
 
     public void PartialUnfreeze()
     {
-        if (clientPlayer.Frozen)
+        if (clientPlayer.Frozen && IsOwner)
         {
             unfreezeCount++;
             print(unfreezeCount+" e clicks and "+unfreezeNumber+" needed");
             if (unfreezeCount >= unfreezeNumber)
             {
-                Unfreeze();
+                UnfreezeOnServer(clientPlayer);
             }
         }
     }
@@ -65,5 +63,11 @@ public class PlayerFreeze : NetworkBehaviour
     public void Unfreeze()
     {
         playerMovement.CanMove = true;
+    }
+
+    [ServerRpc]
+    private void UnfreezeOnServer(ClientPlayer player)
+    {
+        player.Frozen = false;
     }
 }
