@@ -67,5 +67,5 @@ MonoBehaviour:
         _portNumber: 7777
         _transportNickname: 
   _hathoraLobbyRoomOpts:
-    _hathoraRegion: 1
-    _hathoraRegionSelectedIndexUi: 1
+    _hathoraRegion: 2
+    _hathoraRegionSelectedIndexUi: 9
