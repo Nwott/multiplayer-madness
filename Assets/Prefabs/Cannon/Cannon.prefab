@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3572552035922302386}
   m_Layer: 0
   m_Name: Cannon
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 1
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 774665742
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 18397378149165380093
 --- !u!1 &5051771261758746263

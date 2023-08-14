@@ -173,6 +173,11 @@ public class ClientPlayer : NetworkBehaviour
         }
     }
 
+    public void SpawnPlayer(Vector3 position)
+    {
+        transform.localPosition = position;
+    }
+
     private Collider GetClosestItem(Collider[] colliders)
     {
         if (colliders.Length < 1) return null;
