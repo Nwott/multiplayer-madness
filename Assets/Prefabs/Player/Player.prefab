@@ -742,8 +742,8 @@ MonoBehaviour:
   playerMovement: {fileID: 9044952388557898230}
   clientPlayer: {fileID: 3813397337611029621}
   unfreezeNumber: 5
-  damage: 5
-  damageDelay: 0.25
+  damage: 2
+  damageDelay: 0.1
 --- !u!1 &1795115039073178201
 GameObject:
   m_ObjectHideFlags: 0

@@ -141,8 +141,6 @@ public class GameManager : NetworkBehaviour
     [ObserversRpc]
     private void OnPlayerDeathClient(bool enabled, PlayerMovement movement, ClientPlayer player, Vector3 spawnLocation)
     {
-        movement.CanMove = enabled;
-        player.Frozen = false;
         player.Movement.Controller.Move(spawnLocation - player.transform.position);
     }
 
