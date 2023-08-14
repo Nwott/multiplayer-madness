@@ -31,7 +31,7 @@ public class ClientPlayer : NetworkBehaviour
 
     private Item item;
 
-    private bool frozen;
+    [SyncVar][HideInInspector] private bool frozen;
 
     public bool Frozen 
     { 
@@ -45,6 +45,7 @@ public class ClientPlayer : NetworkBehaviour
             }
             else
             {
+                freeze.Unfreeze();
                 frozen = value;
             }
         } 
@@ -115,9 +116,25 @@ public class ClientPlayer : NetworkBehaviour
         }
     }
 
+    // run by server
     private void Death()
     {
         currentTime = 0;
+        GameManager.Instance.OnPlayerDeath(this);
+
+        if(IsServer)
+        {
+            ResetTime();
+        }
+    }
+
+    [ObserversRpc]
+    private void ResetTime()
+    {
+        if(IsOwner)
+        {
+            currentTime = 0;
+        }
     }
 
     // for picking up items
@@ -213,6 +230,19 @@ public class ClientPlayer : NetworkBehaviour
         health = Mathf.Clamp(health, 0, maxHealth);
         userInterface.UpdateHealthBar(health, maxHealth);
         userInterface.UpdateHealthBarOnClients(health, maxHealth);
+
+        if(health <= 0)
+        {
+            Death();
+        }
+    }
+
+    public void ResetHealth()
+    {
+        if(IsServer)
+        {
+            health = MaxHealth;
+        }
     }
 
     [ServerRpc]

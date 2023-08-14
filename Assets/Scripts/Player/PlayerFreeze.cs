@@ -29,7 +29,7 @@ public class PlayerFreeze : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (clientPlayer.Frozen)
+        if (clientPlayer.Frozen && IsOwner)
         {
             damageTimer += Time.deltaTime;
             if (damageTimer >= damageDelay)
@@ -45,7 +45,7 @@ public class PlayerFreeze : NetworkBehaviour
         if (clientPlayer.Frozen) return;
 
         unfreezeCount = 0;
-        playerMovement.canMove = false;
+        playerMovement.CanMove = false;
         damageTimer = 0;
     }
 
@@ -57,9 +57,13 @@ public class PlayerFreeze : NetworkBehaviour
             print(unfreezeCount+" e clicks and "+unfreezeNumber+" needed");
             if (unfreezeCount >= unfreezeNumber)
             {
-                clientPlayer.Frozen = false;
-                playerMovement.canMove = true;
+                Unfreeze();
             }
         }
+    }
+
+    public void Unfreeze()
+    {
+        playerMovement.CanMove = true;
     }
 }

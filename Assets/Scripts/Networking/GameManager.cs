@@ -116,6 +116,13 @@ public class GameManager : NetworkBehaviour
         return go;
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void OnPlayerDeath(ClientPlayer player)
+    {
+        player.ResetHealth();
+        player.Frozen = false;
+    }
+
     [ServerRpc]
     public void SpawnObjectRPC(GameObject obj, Vector3 position, Quaternion rotation)
     {
