@@ -194,9 +194,10 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 450781800676019618}
   controller: {fileID: 2439816537419242198}
   destroyScript: {fileID: -291764041641786136}
-  speed: 20
+  speed: 30
   damage: 0
   despawnRange: 0.3
+  player: {fileID: 0}
   detectionRange: 1
 --- !u!143 &2439816537419242198
 CharacterController:
