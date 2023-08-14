@@ -188,7 +188,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void SpawnProjectileRPC(GameObject obj, Vector3 position, Quaternion rotation, Vector3 targetPos)
+    public void SpawnProjectileRPC(GameObject obj, Vector3 position, Quaternion rotation, Vector3 targetPos, ClientPlayer player)
     {
         GameObject projectile = Instantiate(obj, position, rotation);
         Spawn(projectile);
@@ -196,6 +196,8 @@ public class GameManager : NetworkBehaviour
         Projectile proj = projectile.GetComponent<Projectile>();
         proj.Target = targetPos;
         proj.ThrownByPlayer = true;
+
+        proj.Player = player;
     }
 
     [ServerRpc(RequireOwnership = false)]

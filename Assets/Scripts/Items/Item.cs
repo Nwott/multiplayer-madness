@@ -46,7 +46,7 @@ public class Item : NetworkBehaviour
 
     protected virtual void Throw()
     { 
-        GameManager.Instance.SpawnProjectileRPC(projectile, Firepoint.position, Quaternion.identity, transform.parent.forward);
+        GameManager.Instance.SpawnProjectileRPC(projectile, Firepoint.position, Quaternion.identity, transform.parent.forward, Player);
 
         IsDone();
     }
