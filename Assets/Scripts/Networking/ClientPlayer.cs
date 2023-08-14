@@ -32,7 +32,7 @@ public class ClientPlayer : NetworkBehaviour
 
     private Item item;
 
-    [SyncVar(OnChange = nameof(on_frozen))][HideInInspector] private bool frozen;
+    [SyncVar(OnChange = nameof(on_frozen), Channel = FishNet.Transporting.Channel.Reliable)][HideInInspector] private bool frozen;
 
     public bool Frozen 
     { 
