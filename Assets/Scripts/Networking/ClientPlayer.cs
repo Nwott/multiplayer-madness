@@ -37,12 +37,15 @@ public class ClientPlayer : NetworkBehaviour
     { 
         get { return frozen; } 
         set 
-        { 
-            frozen = value; 
-
-            if(frozen)
+        {
+            if(value == true)
             {
                 freeze.Freeze();
+                frozen = value;
+            }
+            else
+            {
+                frozen = value;
             }
         } 
     }

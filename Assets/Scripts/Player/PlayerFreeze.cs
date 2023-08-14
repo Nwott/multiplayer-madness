@@ -8,14 +8,18 @@ using FishNet.Connection;
 
 public class PlayerFreeze : NetworkBehaviour
 {
+    [Header("References")]
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private int unfreezeNumber;
     [SerializeField] private ClientPlayer clientPlayer;
+
+    [Header("Settings")]
+    [SerializeField] private int unfreezeNumber;
     [SerializeField] private int damage;
     [SerializeField] private float damageDelay;
+
     private float damageTimer;
     private int unfreezeCount;
-    bool isFrozen = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +29,7 @@ public class PlayerFreeze : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isFrozen)
+        if (clientPlayer.Frozen)
         {
             damageTimer += Time.deltaTime;
             if (damageTimer >= damageDelay)
@@ -38,29 +42,22 @@ public class PlayerFreeze : NetworkBehaviour
 
     public void Freeze()
     {
-        if (isFrozen)
-        {
-            //do nothing
-        }
-        else
-        {
-            isFrozen = true;
-            unfreezeCount = 0;
-            playerMovement.canMove = false;
-            damageTimer = 0;
+        if (clientPlayer.Frozen) return;
 
-        }
+        unfreezeCount = 0;
+        playerMovement.canMove = false;
+        damageTimer = 0;
     }
 
     public void PartialUnfreeze()
     {
-        if (isFrozen)
+        if (clientPlayer.Frozen)
         {
             unfreezeCount++;
             print(unfreezeCount+" e clicks and "+unfreezeNumber+" needed");
             if (unfreezeCount >= unfreezeNumber)
             {
-                isFrozen = false;
+                clientPlayer.Frozen = false;
                 playerMovement.canMove = true;
             }
         }
