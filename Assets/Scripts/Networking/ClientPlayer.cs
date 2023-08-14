@@ -125,7 +125,7 @@ public class ClientPlayer : NetworkBehaviour
     {
         if (item != null) return; // if player is already holding item, don't run code
 
-        if(IsOwner)
+        if(IsOwner && !frozen)
         {
             Collider closestItem = GetClosestItem(Physics.OverlapSphere(transform.position, itemDetectionRadius));
 
@@ -142,7 +142,7 @@ public class ClientPlayer : NetworkBehaviour
 
     public void UseItem()
     {
-        if(IsOwner)
+        if(IsOwner && !frozen)
         {
             item.Firepoint = firepoint.transform;
             item.Perform();
