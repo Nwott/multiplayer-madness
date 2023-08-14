@@ -135,16 +135,15 @@ public class GameManager : NetworkBehaviour
         // random spawn location
         Vector3 spawnLocation = playerSpawner.Spawns[Random.Range(0, playerSpawner.Spawns.Length - 1)].position;
 
-        player.Movement.Controller.Move(spawnLocation - player.transform.position);
-
-        OnPlayerDeathClient(true, player.Movement, player);
+        OnPlayerDeathClient(true, player.Movement, player, spawnLocation);
     }
 
     [ObserversRpc]
-    private void OnPlayerDeathClient(bool enabled, PlayerMovement movement, ClientPlayer player)
+    private void OnPlayerDeathClient(bool enabled, PlayerMovement movement, ClientPlayer player, Vector3 spawnLocation)
     {
         movement.CanMove = enabled;
         player.Frozen = false;
+        player.Movement.Controller.Move(spawnLocation - player.transform.position);
     }
 
     [ServerRpc]
