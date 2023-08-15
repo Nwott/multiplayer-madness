@@ -13,18 +13,18 @@ public class HathoraManager : MonoBehaviour
 
     private void Start()
     {
-        Login();
+        
     }
 
     public void Login()
     {
-        StartCoroutine(LoginCoroutine());
+
     }
 
     private IEnumerator LoginCoroutine()
     {
         string baseUrl = "https://api.hathora.dev/auth/v1/" + appID + "/login/anonymous";
-        string content = "{ \"appId\": \"" + appID + "\"}";
+        string content = "";
 
         using (UnityWebRequest www = UnityWebRequest.Post(baseUrl, content, "application/json"))
         {
@@ -40,13 +40,15 @@ public class HathoraManager : MonoBehaviour
                 token = www.downloadHandler.text.Substring(10);
                 token = token.Substring(0, token.Length - 2);
                 Debug.Log("Token: " + token);
+
+                StartCoroutine(CreateLobbyRequest());
             }
         }
     }
 
     public void CreateLobby()
     {
-        StartCoroutine(CreateLobbyRequest());
+        StartCoroutine(LoginCoroutine());
     }
 
     private IEnumerator CreateLobbyRequest()
