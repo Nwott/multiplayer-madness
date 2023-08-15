@@ -21,7 +21,7 @@ public class HathoraManager : MonoBehaviour
 
     }
 
-    private IEnumerator LoginCoroutine()
+    private IEnumerator LoginCoroutine(string region)
     {
         string baseUrl = "https://api.hathora.dev/auth/v1/" + appID + "/login/anonymous";
         string content = "";
@@ -41,20 +41,21 @@ public class HathoraManager : MonoBehaviour
                 token = token.Substring(0, token.Length - 2);
                 Debug.Log("Token: " + token);
 
-                StartCoroutine(CreateLobbyRequest());
+                StartCoroutine(CreateLobbyRequest(region));
             }
         }
     }
 
-    public void CreateLobby()
+    public void CreateLobby(string region)
     {
-        StartCoroutine(LoginCoroutine());
+        StartCoroutine(LoginCoroutine(region));
     }
 
-    private IEnumerator CreateLobbyRequest()
+    private IEnumerator CreateLobbyRequest(string region)
     {
+        region = "\"" + region + "\"";
         string baseUrl = "https://api.hathora.dev/lobby/v2/" + appID + "/create";
-        string content = "{ \"visibility\": \"public\", \"initialConfig\": { }, \"region\": \"Washington_DC\" }";
+        string content = "{ \"visibility\": \"public\", \"initialConfig\": { }, \"region\":" + region + " }";
 
         using (UnityWebRequest www = UnityWebRequest.Post(baseUrl, content, "application/json"))
         {
@@ -71,6 +72,30 @@ public class HathoraManager : MonoBehaviour
             else
             {
                 Debug.Log(www.downloadHandler.text);
+            }
+        }
+    }
+
+    public void GetPublicLobbies(LobbyMenu.ReceivedLobbies callback)
+    {
+        StartCoroutine(GetPublicLobbiesRequest(callback));
+    }
+
+    private IEnumerator GetPublicLobbiesRequest(LobbyMenu.ReceivedLobbies callback)
+    {
+        string baseUrl = "https://api.hathora.dev/lobby/v2/" + appID + "/list/public";
+
+        using (UnityWebRequest www = UnityWebRequest.Get(baseUrl))
+        {
+            yield return www.SendWebRequest();
+
+            if(www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                callback(www.downloadHandler.text);
             }
         }
     }
