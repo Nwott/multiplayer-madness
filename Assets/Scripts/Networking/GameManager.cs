@@ -125,7 +125,6 @@ public class GameManager : NetworkBehaviour
         return go;
     }
 
-    [ServerRpc(RequireOwnership = false)]
     public void OnPlayerDeath(ClientPlayer player)
     {
         player.ResetHealth();
