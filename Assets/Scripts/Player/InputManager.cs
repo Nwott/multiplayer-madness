@@ -12,6 +12,7 @@ public class InputManager : NetworkBehaviour
     Controls controls;
     Controls.MovementActions movement;
     Controls.InteractionActions interaction;
+    Controls.MenuActions menuActions;
     Vector2 hInput;
     PlayerMovement playerController;
     PlayerFreeze PlayerFreeze;
@@ -23,11 +24,13 @@ public class InputManager : NetworkBehaviour
         PlayerFreeze = gameObject.GetComponent<PlayerFreeze>();
         movement = controls.Movement;
         interaction = controls.Interaction;
+        menuActions = controls.Menu;
 
         movement.HMovement.performed += ctx => hInput = ctx.ReadValue<Vector2>();
         interaction.Interact.performed += _ => Interact();
         interaction.UseItem.performed += _ => UseItem();
- 	movement.Unfreeze.performed += ctx => PlayerFreeze.PartialUnfreeze();
+ 	    movement.Unfreeze.performed += ctx => PlayerFreeze.PartialUnfreeze();
+        menuActions.Pause.performed += ctx => clientPlayer.TogglePaused();
         //movement.Eat.performed += ctx => playerController.eat();
         
 
