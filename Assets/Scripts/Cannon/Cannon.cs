@@ -108,6 +108,7 @@ public class Cannon : NetworkBehaviour
 
             barrelData[i].Target = barrelData[i].Player.gameObject;
             barrelData[i].Barrel.transform.LookAt(target);
+            barrelData[i].Barrel.PlayShootAnimation();
         }
     }
 

@@ -7,10 +7,16 @@ public class CannonBarrel : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform firepoint;
+    [SerializeField] private CannonAnimations animations;
 
     private BarrelData barrelData;
 
     public BarrelData BarrelData { get { return barrelData; } set { barrelData = value; } }
+
+    public void PlayShootAnimation()
+    {
+        animations.PlayShootAnimation();   
+    }
 
     public void Shoot(GameObject target)
     {
@@ -18,7 +24,7 @@ public class CannonBarrel : MonoBehaviour
         Projectile projScript = cannonBall.GetComponent<Projectile>();
         projScript.Target = target.transform.position;
         projScript.TargetPlayer = target;
-	projScript.Callback = barrelData.Callback;
-	projScript.Player = target.GetComponent<ClientPlayer>();
+	    projScript.Callback = barrelData.Callback;
+	    projScript.Player = target.GetComponent<ClientPlayer>();
     }
 }
