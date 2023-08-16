@@ -11,6 +11,7 @@ public class PlayerMovement : NetworkBehaviour
 
     [Header("Settings")]
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float gravity = -9.81f;
     private bool canMove = true;
 
     public bool CanMove { get { return canMove; } set { canMove = value; } }
@@ -35,6 +36,8 @@ public class PlayerMovement : NetworkBehaviour
             {
                 controller.Move(new Vector3(hInput.x * moveSpeed * Time.deltaTime, 0, hInput.y * moveSpeed * Time.deltaTime));
             }
+
+            controller.Move(Vector3.down * gravity * Time.deltaTime);
 
             SendAnimationStatus();
         }
