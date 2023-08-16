@@ -67,6 +67,7 @@ public class ClientPlayer : NetworkBehaviour
 
         if(IsOwner)
         {
+            GetComponent<InputManager>().enabled = true;
             Initialize(PlayerPrefs.GetString("Username"));
             ownerObjects.SetActive(true);
         }
