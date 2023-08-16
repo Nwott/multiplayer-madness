@@ -825,6 +825,8 @@ MonoBehaviour:
   movement: {fileID: 9044952388557898230}
   pauseMenu: {fileID: 4924125752558239534}
   playerAnimations: {fileID: 1173969028402190103}
+  iceBlockGO: {fileID: 5809415204637085170, guid: 5d23e812d874d574584cb2bb73b384d3,
+    type: 3}
   maxHealth: 100
   itemDetectionRadius: 4
   username: 
@@ -1593,7 +1595,7 @@ Transform:
   m_GameObject: {fileID: 3509427694613830726}
   serializedVersion: 2
   m_LocalRotation: {x: 0.12856793, y: -0, z: -0, w: 0.99170077}
-  m_LocalPosition: {x: 0, y: 2.511, z: 0}
+  m_LocalPosition: {x: 0, y: 3.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

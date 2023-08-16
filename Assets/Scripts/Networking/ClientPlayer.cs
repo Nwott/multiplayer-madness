@@ -21,6 +21,9 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private PlayerMovement movement;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private PlayerAnimations playerAnimations;
+    [SerializeField] private GameObject iceBlockGO;
+
+    private GameObject iceBlock;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -188,10 +191,20 @@ public class ClientPlayer : NetworkBehaviour
 
         if(next == true)
         {
+            if(asServer)
+            {
+                iceBlock = GameManager.Instance.SpawnObject(iceBlockGO, transform.position, Quaternion.identity, null);
+            }
+
             freeze.Freeze();
         }
         else
         {
+            if(asServer && iceBlock != null)
+            {
+                Despawn(iceBlock);
+            }
+
             freeze.Unfreeze();
         }
     }
