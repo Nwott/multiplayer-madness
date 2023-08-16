@@ -798,6 +798,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5718341626411701019}
   clientPlayer: {fileID: 3813397337611029621}
   moveSpeed: 5
+  gravity: 9.81
 --- !u!114 &3813397337611029621
 MonoBehaviour:
   m_ObjectHideFlags: 0

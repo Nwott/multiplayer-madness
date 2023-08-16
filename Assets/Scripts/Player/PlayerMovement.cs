@@ -11,7 +11,7 @@ public class PlayerMovement : NetworkBehaviour
 
     [Header("Settings")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float gravity = 9.81f;
     private bool canMove = true;
 
     public bool CanMove { get { return canMove; } set { canMove = value; } }
