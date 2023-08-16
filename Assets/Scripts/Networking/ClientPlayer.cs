@@ -5,6 +5,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Connection;
 using UnityEngine.InputSystem;
+using FishNet.Component.Spawning;
 
 public class ClientPlayer : NetworkBehaviour
 {
@@ -80,8 +81,8 @@ public class ClientPlayer : NetworkBehaviour
             Initialize(PlayerPrefs.GetString("Username"));
             ownerObjects.SetActive(true);
         }
-    } 
-    
+    }
+
 
     private void Update()
     {

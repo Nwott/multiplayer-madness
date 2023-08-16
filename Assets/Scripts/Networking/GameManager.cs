@@ -140,7 +140,8 @@ public class GameManager : NetworkBehaviour
     [ObserversRpc]
     private void OnPlayerDeathClient(bool enabled, PlayerMovement movement, ClientPlayer player, Vector3 spawnLocation)
     {
-        player.Movement.Controller.Move(spawnLocation - player.transform.position);
+        player.transform.position = spawnLocation;
+        Physics.SyncTransforms();
     }
 
     [ServerRpc]
