@@ -13,6 +13,7 @@ public class LobbyMenu : MonoBehaviour
     [SerializeField] private TMP_Dropdown regionDropdown;
     [SerializeField] private GameObject gameSlot;
     [SerializeField] private GameObject gameSlotList;
+    [SerializeField] private TMP_InputField usernameInputField;
 
     private List<GameObject> gameSlots = new();
 
@@ -75,6 +76,7 @@ public class LobbyMenu : MonoBehaviour
         gameSlotScript.RoomID = roomID;
         gameSlotScript.Region = region;
         gameSlotScript.HathoraManager = hathoraManager;
+        gameSlotScript.UsernameInputField = usernameInputField;
 
         gameSlots.Add(gameSlotGO);
     }
