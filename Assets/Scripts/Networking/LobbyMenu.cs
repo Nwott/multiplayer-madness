@@ -74,6 +74,7 @@ public class LobbyMenu : MonoBehaviour
         GameSlot gameSlotScript = gameSlotGO.GetComponent<GameSlot>();
         gameSlotScript.RoomID = roomID;
         gameSlotScript.Region = region;
+        gameSlotScript.HathoraManager = hathoraManager;
 
         gameSlots.Add(gameSlotGO);
     }

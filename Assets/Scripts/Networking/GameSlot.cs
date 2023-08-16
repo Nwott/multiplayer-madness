@@ -14,6 +14,9 @@ public class GameSlot : MonoBehaviour
 
     public string RoomID { get { return roomID; } set { roomID = value; UpdateRoomID(); } }
     public string Region { get { return region; } set { region = value; UpdateRegion(); } }
+    public HathoraManager HathoraManager { get; set; }
+
+    public delegate void ReceivedConnectionInfo(string info);
 
     private void UpdateRoomID()
     {
@@ -23,5 +26,18 @@ public class GameSlot : MonoBehaviour
     private void UpdateRegion()
     {
         txtRegion.text = "Region: " + Region;
+    }
+
+    public void JoinGame()
+    {
+        ReceivedConnectionInfo callback = OnConnectionInfoReceived;
+        HathoraManager.GetConnectionInfo(RoomID, callback);
+    }
+
+    private void OnConnectionInfoReceived(string info)
+    {
+        //print(info);
+        string address = info.Split("host\":\"")[1];
+        print(address);
     }
 }

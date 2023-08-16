@@ -99,4 +99,29 @@ public class HathoraManager : MonoBehaviour
             }
         }
     }
+
+    // converts roomID into up and port to connect to
+    public void GetConnectionInfo(string roomID, GameSlot.ReceivedConnectionInfo callback)
+    {
+        StartCoroutine(GetConnectionInfoRequest(roomID, callback));
+    }
+
+    private IEnumerator GetConnectionInfoRequest(string roomID, GameSlot.ReceivedConnectionInfo callback)
+    {
+        string baseURL = "https://api.hathora.dev/rooms/v2/" + appID + "/connectioninfo/" + roomID;
+
+        using(UnityWebRequest www = UnityWebRequest.Get(baseURL))
+        {
+            yield return www.SendWebRequest();
+
+            if(www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                callback(www.downloadHandler.text);
+            }
+        }
+    }
 }
