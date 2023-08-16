@@ -14,6 +14,8 @@ public class LobbyMenu : MonoBehaviour
     [SerializeField] private GameObject gameSlot;
     [SerializeField] private GameObject gameSlotList;
 
+    private List<GameObject> gameSlots = new();
+
     public delegate void ReceivedLobbies(string lobbyString);
 
     public void ShowHostPanel()
@@ -37,6 +39,11 @@ public class LobbyMenu : MonoBehaviour
 
     public void RefreshJoinMenu() 
     {
+        for(int i = 0; i < gameSlots.Count; i++)
+        {
+            Destroy(gameSlots[i]);
+        }
+
         ReceivedLobbies callback = OnGetPublicLobbies;
         hathoraManager.GetPublicLobbies(callback);
     }
@@ -67,5 +74,7 @@ public class LobbyMenu : MonoBehaviour
         GameSlot gameSlotScript = gameSlotGO.GetComponent<GameSlot>();
         gameSlotScript.RoomID = roomID;
         gameSlotScript.Region = region;
+
+        gameSlots.Add(gameSlotGO);
     }
 }
