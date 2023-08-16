@@ -19,6 +19,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private OverheadUI overheadUI;
     [SerializeField] private Transform overheadUITransform;
     [SerializeField] private PlayerMovement movement;
+    [SerializeField] private GameObject pauseMenu;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -31,6 +32,10 @@ public class ClientPlayer : NetworkBehaviour
     [SyncVar][HideInInspector] private float longestTime; // amount of time in seconds that the player has been alive for the longest
 
     private Item item;
+
+    private bool paused;
+
+    public bool Paused { get { return paused; } private set { paused = value; OnPauseChanged(); } }
 
     [SyncVar(OnChange = nameof(on_frozen), Channel = FishNet.Transporting.Channel.Reliable)][HideInInspector] private bool frozen;
 
@@ -67,6 +72,7 @@ public class ClientPlayer : NetworkBehaviour
 
         if(IsOwner)
         {
+            GetComponent<InputManager>().enabled = true;
             Initialize(PlayerPrefs.GetString("Username"));
             ownerObjects.SetActive(true);
         }
@@ -106,6 +112,21 @@ public class ClientPlayer : NetworkBehaviour
         if(currentTime > longestTime)
         {
             SetLongestTime(currentTime);
+        }
+    }
+
+    public void TogglePaused()
+    {
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        Paused = !Paused;
+    }
+
+    public void OnPauseChanged()
+    {
+        if(IsOwner)
+        {
+            GetComponent<InputManager>().enabled = !Paused;
+            GetComponent<PlayerMovement>().enabled = !Paused;
         }
     }
 

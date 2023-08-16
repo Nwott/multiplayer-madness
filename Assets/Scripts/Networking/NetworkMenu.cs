@@ -74,6 +74,8 @@ public class NetworkMenu : MonoBehaviour
         devMenu.SetActive(false);
         mainMenu.SetActive(false);
         lobbyMenu.SetActive(true);
+
+        lobbyMenu.GetComponent<LobbyMenu>().RefreshJoinMenu();
     }
 
     public void CloseLobbyMenu()

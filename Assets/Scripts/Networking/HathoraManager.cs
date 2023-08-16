@@ -21,7 +21,7 @@ public class HathoraManager : MonoBehaviour
 
     }
 
-    private IEnumerator LoginCoroutine(string region)
+    private IEnumerator LoginCoroutine(string region, LobbyMenu.CreatedLobby callback)
     {
         string baseUrl = "https://api.hathora.dev/auth/v1/" + appID + "/login/anonymous";
         string content = "";
@@ -41,17 +41,24 @@ public class HathoraManager : MonoBehaviour
                 token = token.Substring(0, token.Length - 2);
                 Debug.Log("Token: " + token);
 
-                StartCoroutine(CreateLobbyRequest(region));
+                StartCoroutine(CreateLobbyRequest(region, callback));
             }
         }
     }
 
-    public void CreateLobby(string region)
+    public void CreateLobby(string region, LobbyMenu.CreatedLobby callback)
     {
-        StartCoroutine(LoginCoroutine(region));
+        if(token == null || token == "")
+        {
+            StartCoroutine(LoginCoroutine(region, callback));
+        } 
+        else
+        {
+            StartCoroutine(CreateLobbyRequest(region, callback));
+        }
     }
 
-    private IEnumerator CreateLobbyRequest(string region)
+    private IEnumerator CreateLobbyRequest(string region, LobbyMenu.CreatedLobby callback)
     {
         region = "\"" + region + "\"";
         string baseUrl = "https://api.hathora.dev/lobby/v2/" + appID + "/create";
@@ -66,12 +73,13 @@ public class HathoraManager : MonoBehaviour
 
             if(www.result != UnityWebRequest.Result.Success)
             {
+                Prompt.Instance.ShowPrompt("Could not create lobby. Please try again.");
                 Debug.Log(www.error);
                 print(www.GetRequestHeader("Authorization"));
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+                callback(www.downloadHandler.text);
             }
         }
     }
@@ -91,6 +99,7 @@ public class HathoraManager : MonoBehaviour
 
             if(www.result != UnityWebRequest.Result.Success)
             {
+                Prompt.Instance.ShowPrompt("Could not get public lobbies. Please try again.");
                 Debug.Log(www.error);
             }
             else
@@ -101,12 +110,12 @@ public class HathoraManager : MonoBehaviour
     }
 
     // converts roomID into up and port to connect to
-    public void GetConnectionInfo(string roomID, GameSlot.ReceivedConnectionInfo callback)
+    public void GetConnectionInfo(string roomID, GameSlot.ReceivedConnectionInfo callback, bool isHost)
     {
-        StartCoroutine(GetConnectionInfoRequest(roomID, callback));
+        StartCoroutine(GetConnectionInfoRequest(roomID, callback, isHost));
     }
 
-    private IEnumerator GetConnectionInfoRequest(string roomID, GameSlot.ReceivedConnectionInfo callback)
+    private IEnumerator GetConnectionInfoRequest(string roomID, GameSlot.ReceivedConnectionInfo callback, bool isHost)
     {
         string baseURL = "https://api.hathora.dev/rooms/v2/" + appID + "/connectioninfo/" + roomID;
 
@@ -116,11 +125,12 @@ public class HathoraManager : MonoBehaviour
 
             if(www.result != UnityWebRequest.Result.Success)
             {
+                Prompt.Instance.ShowPrompt("Could not get connection info. Please try again.");
                 Debug.Log(www.error);
             }
             else
             {
-                callback(www.downloadHandler.text);
+                callback(www.downloadHandler.text, isHost);
             }
         }
     }
