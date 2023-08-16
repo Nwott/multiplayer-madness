@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using FishNet;
 
 public class LobbyMenu : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class LobbyMenu : MonoBehaviour
 
     private List<GameObject> gameSlots = new();
 
+    public delegate void CreatedLobby(string lobbyString);
     public delegate void ReceivedLobbies(string lobbyString);
 
     public void ShowHostPanel()
@@ -36,6 +38,11 @@ public class LobbyMenu : MonoBehaviour
         string region = regionDropdown.options[regionDropdown.value].text;
         region = region.Replace(" ", "_");
         hathoraManager.CreateLobby(region);
+    }
+
+    private void OnGameHosted(string lobbyString)
+    {
+
     }
 
     public void RefreshJoinMenu() 
@@ -77,7 +84,61 @@ public class LobbyMenu : MonoBehaviour
         gameSlotScript.Region = region;
         gameSlotScript.HathoraManager = hathoraManager;
         gameSlotScript.UsernameInputField = usernameInputField;
+        gameSlotScript.LobbyMenu = this;
 
         gameSlots.Add(gameSlotGO);
+    }
+
+    public void OnConnectionInfoReceived(string info)
+    {
+        string status = info.Split("status\":\"")[1];
+        status = status.Split("\"")[0];
+
+        if (status != "active")
+        {
+            print("Server still starting. Try again in a few seconds.");
+            return;
+        }
+
+        string address = info.Split("host\":\"")[1];
+        address = address.Split("\"")[0];
+        string port = info.Split("port\":")[1];
+        port = port.Split(",")[0];
+
+        Connect(address, port);
+    }
+
+    public void Connect(string ip, string port)
+    {
+        if (ip == "")
+        {
+            ip = "localhost";
+        }
+
+        if (port == "")
+        {
+            port = "7770";
+        }
+
+        InstanceFinder.ClientManager.StartConnection(ip, ushort.Parse(port));
+
+        Setup();
+    }
+
+    private void Setup()
+    {
+        SetUsername();
+    }
+
+    private void SetUsername()
+    {
+        string username = usernameInputField.text;
+
+        if (username == "")
+        {
+            username = "Player" + Random.Range(1000, 9999);
+        }
+
+        PlayerPrefs.SetString("Username", username);
     }
 }

@@ -17,6 +17,7 @@ public class GameSlot : MonoBehaviour
     public string Region { get { return region; } set { region = value; UpdateRegion(); } }
     public HathoraManager HathoraManager { get; set; }
     public TMP_InputField UsernameInputField { get; set; }
+    public LobbyMenu LobbyMenu { get; set; }
 
     public delegate void ReceivedConnectionInfo(string info);
 
@@ -32,60 +33,7 @@ public class GameSlot : MonoBehaviour
 
     public void JoinGame()
     {
-        ReceivedConnectionInfo callback = OnConnectionInfoReceived;
+        ReceivedConnectionInfo callback = LobbyMenu.OnConnectionInfoReceived;
         HathoraManager.GetConnectionInfo(RoomID, callback);
-    }
-
-    private void OnConnectionInfoReceived(string info)
-    {
-        string status = info.Split("status\":\"")[1];
-        status = status.Split("\"")[0];
-
-        if(status != "active")
-        {
-            print("Server still starting. Try again in a few seconds.");
-            return;
-        }
-
-        string address = info.Split("host\":\"")[1];
-        address = address.Split("\"")[0];
-        string port = info.Split("port\":")[1];
-        port = port.Split(",")[0];
-
-        Connect(address, port);
-    }
-
-    public void Connect(string ip, string port)
-    {
-        if (ip == "")
-        {
-            ip = "localhost";
-        }
-
-        if(port == "")
-        {
-            port = "7770";
-        }
-
-        InstanceFinder.ClientManager.StartConnection(ip, ushort.Parse(port));
-
-        Setup();
-    }
-
-    private void Setup()
-    {
-        SetUsername();
-    }
-
-    private void SetUsername()
-    {
-        string username = UsernameInputField.text;
-
-        if (username == "")
-        {
-            username = "Player" + Random.Range(1000, 9999);
-        }
-
-        PlayerPrefs.SetString("Username", username);
     }
 }
