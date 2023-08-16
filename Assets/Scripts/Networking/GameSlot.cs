@@ -36,8 +36,18 @@ public class GameSlot : MonoBehaviour
 
     private void OnConnectionInfoReceived(string info)
     {
-        //print(info);
+        string status = info.Split("status\":\"")[1];
+        status = status.Split("\"")[0];
+
+        if(status != "active")
+        {
+            print("Server still starting. Try again in a few seconds.");
+            return;
+        }
+
         string address = info.Split("host\":\"")[1];
-        print(address);
+        address = address.Split("\"")[0];
+        string port = info.Split("port\":")[1];
+        port = port.Split(",")[0];
     }
 }
