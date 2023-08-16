@@ -701,6 +701,9 @@ MonoBehaviour:
   hostPanel: {fileID: 1002400295}
   joinPanel: {fileID: 1568643246}
   regionDropdown: {fileID: 1023809892}
+  gameSlot: {fileID: 6754221811756149150, guid: 31fa38e56e34cb64dbc8631e0ba78206,
+    type: 3}
+  gameSlotList: {fileID: 1469224779}
 --- !u!1 &264761855
 GameObject:
   m_ObjectHideFlags: 0

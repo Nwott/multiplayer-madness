@@ -11,6 +11,8 @@ public class LobbyMenu : MonoBehaviour
     [SerializeField] private GameObject hostPanel;
     [SerializeField] private GameObject joinPanel;
     [SerializeField] private TMP_Dropdown regionDropdown;
+    [SerializeField] private GameObject gameSlot;
+    [SerializeField] private GameObject gameSlotList;
 
     public delegate void ReceivedLobbies(string lobbyString);
 
@@ -54,7 +56,16 @@ public class LobbyMenu : MonoBehaviour
             string roomID = lobbyStrList[i].Substring(3);
             string region = roomID.Split("\"")[4];
             roomID = roomID.Split("\"")[0];
-            print(roomID);
+
+            CreateGameSlot(roomID, region);
         }
+    }
+
+    private void CreateGameSlot(string roomID, string region)
+    {
+        GameObject gameSlotGO = Instantiate(gameSlot, transform.position, Quaternion.identity, gameSlotList.transform);
+        GameSlot gameSlotScript = gameSlotGO.GetComponent<GameSlot>();
+        gameSlotScript.RoomID = roomID;
+        gameSlotScript.Region = region;
     }
 }
