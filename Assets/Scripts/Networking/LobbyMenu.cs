@@ -46,7 +46,15 @@ public class LobbyMenu : MonoBehaviour
 
         for(int i = 0; i < lobbyStrList.Length; i++)
         {
-            print(lobbyStrList[i]);
+            if (!lobbyStrList[i].Contains("region"))
+            {
+                continue;
+            }
+
+            string roomID = lobbyStrList[i].Substring(3);
+            string region = roomID.Split("\"")[4];
+            roomID = roomID.Split("\"")[0];
+            print(roomID);
         }
     }
 }
