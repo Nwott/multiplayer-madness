@@ -110,6 +110,7 @@ public class LobbyMenu : MonoBehaviour
             }
             else
             {
+                Prompt.Instance.ShowPrompt("Server still starting. Try again in a few seconds.");
                 print("Server still starting. Try again in a few seconds.");
                 return;
             }

@@ -73,6 +73,7 @@ public class HathoraManager : MonoBehaviour
 
             if(www.result != UnityWebRequest.Result.Success)
             {
+                Prompt.Instance.ShowPrompt("Could not create lobby. Please try again.");
                 Debug.Log(www.error);
                 print(www.GetRequestHeader("Authorization"));
             }
@@ -98,6 +99,7 @@ public class HathoraManager : MonoBehaviour
 
             if(www.result != UnityWebRequest.Result.Success)
             {
+                Prompt.Instance.ShowPrompt("Could not get public lobbies. Please try again.");
                 Debug.Log(www.error);
             }
             else
@@ -123,6 +125,7 @@ public class HathoraManager : MonoBehaviour
 
             if(www.result != UnityWebRequest.Result.Success)
             {
+                Prompt.Instance.ShowPrompt("Could not get connection info. Please try again.");
                 Debug.Log(www.error);
             }
             else
