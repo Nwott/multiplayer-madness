@@ -8,11 +8,21 @@ using FishNet;
 public class NetworkMenu : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Button hostButton;
-    [SerializeField] private Button connectButton;
+    [SerializeField] private GameObject devMenu; // menu with host and connect buttons
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject lobbyMenu;
     [SerializeField] private TMP_InputField ipInputField;
     [SerializeField] private TMP_InputField usernameInputField;
     [SerializeField] private TMP_InputField portInputField;
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Y))
+        {
+            // toggle between dev menu and main menu
+            ToggleMenu();
+        }
+    }
 
     public void Host()
     {
@@ -51,5 +61,25 @@ public class NetworkMenu : MonoBehaviour
         }
 
         PlayerPrefs.SetString("Username", username);
+    }
+
+    private void ToggleMenu()
+    {
+        devMenu.SetActive(!devMenu.activeSelf);
+        mainMenu.SetActive(!mainMenu.activeSelf);
+    }
+
+    public void OpenLobbyMenu()
+    {
+        devMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        lobbyMenu.SetActive(true);
+    }
+
+    public void CloseLobbyMenu()
+    {
+        devMenu.SetActive(false);
+        lobbyMenu.SetActive(false);
+        mainMenu.SetActive(true);
     }
 }
