@@ -20,6 +20,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private Transform overheadUITransform;
     [SerializeField] private PlayerMovement movement;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private PlayerAnimations playerAnimations;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
@@ -291,5 +292,10 @@ public class ClientPlayer : NetworkBehaviour
     private void OnDisconnect()
     {
         print("test");
+    }
+
+    public void Walking(bool walking)
+    {
+        playerAnimations.Walking = walking;
     }
 }
