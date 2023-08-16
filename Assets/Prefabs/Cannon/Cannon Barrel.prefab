@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af657467a74ffc04e901d4611a3cdcdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 7934731620659304829, guid: 366ced2fcaddc043694f03c3a06165c1,
+  projectile: {fileID: 6432767970490893840, guid: f08628574ea510a48a9ae1af3e8b2b77,
     type: 3}
   firepoint: {fileID: 1737587914393708547}
 --- !u!1 &3885259737003212698

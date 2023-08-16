@@ -677,6 +677,7 @@ MonoBehaviour:
   - {fileID: 7055198183768963573}
   - {fileID: 7763212103259738904}
   - {fileID: 1173969028402190103}
+  - {fileID: 6529161883108268855}
   - {fileID: 4398602024532770332}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -1776,7 +1777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 7
+  _componentIndexCache: 8
   _addedNetworkObject: {fileID: 5718341626411701019}
   _networkObjectCache: {fileID: 5718341626411701019}
   _componentConfiguration: 0
@@ -1897,7 +1898,7 @@ Transform:
   m_GameObject: {fileID: 3978630774075679806}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 9.66}
+  m_LocalPosition: {x: 0, y: 0, z: 4.09}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2617,7 +2618,7 @@ Transform:
   m_GameObject: {fileID: 6154463150201399934}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3196209, y: -0, z: -0, w: 0.9475455}
-  m_LocalPosition: {x: -0.142, y: 13.1156, z: -16.6429}
+  m_LocalPosition: {x: -0.142, y: 11.56, z: -16.6429}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3734,9 +3735,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 5718341626411701019}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5718341626411701019}
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
