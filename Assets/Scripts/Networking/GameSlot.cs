@@ -19,7 +19,7 @@ public class GameSlot : MonoBehaviour
     public TMP_InputField UsernameInputField { get; set; }
     public LobbyMenu LobbyMenu { get; set; }
 
-    public delegate void ReceivedConnectionInfo(string info);
+    public delegate void ReceivedConnectionInfo(string info, bool isHost);
 
     private void UpdateRoomID()
     {
@@ -34,6 +34,6 @@ public class GameSlot : MonoBehaviour
     public void JoinGame()
     {
         ReceivedConnectionInfo callback = LobbyMenu.OnConnectionInfoReceived;
-        HathoraManager.GetConnectionInfo(RoomID, callback);
+        HathoraManager.GetConnectionInfo(RoomID, callback, false);
     }
 }

@@ -20,6 +20,7 @@ public class LobbyMenu : MonoBehaviour
 
     public delegate void CreatedLobby(string lobbyString);
     public delegate void ReceivedLobbies(string lobbyString);
+    public delegate void ReceivedConnectionInfo(string info);
 
     public void ShowHostPanel()
     {
@@ -37,12 +38,19 @@ public class LobbyMenu : MonoBehaviour
     {
         string region = regionDropdown.options[regionDropdown.value].text;
         region = region.Replace(" ", "_");
-        hathoraManager.CreateLobby(region);
+
+        CreatedLobby callback = LobbyCreated;
+
+        hathoraManager.CreateLobby(region, callback);
     }
 
-    private void OnGameHosted(string lobbyString)
+    private void LobbyCreated(string lobbyString)
     {
+        string roomID = lobbyString.Split("roomId\":\"")[1];
+        roomID = roomID.Split("\"")[0];
 
+        GameSlot.ReceivedConnectionInfo callback = OnConnectionInfoReceived;
+        hathoraManager.GetConnectionInfo(roomID, callback, true);
     }
 
     public void RefreshJoinMenu() 
@@ -89,15 +97,22 @@ public class LobbyMenu : MonoBehaviour
         gameSlots.Add(gameSlotGO);
     }
 
-    public void OnConnectionInfoReceived(string info)
+    public void OnConnectionInfoReceived(string info, bool isHost)
     {
         string status = info.Split("status\":\"")[1];
         status = status.Split("\"")[0];
 
         if (status != "active")
         {
-            print("Server still starting. Try again in a few seconds.");
-            return;
+            if(isHost)
+            {
+                LobbyCreated(info);
+            }
+            else
+            {
+                print("Server still starting. Try again in a few seconds.");
+                return;
+            }
         }
 
         string address = info.Split("host\":\"")[1];
