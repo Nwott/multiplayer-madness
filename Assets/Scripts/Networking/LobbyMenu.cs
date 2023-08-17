@@ -41,6 +41,8 @@ public class LobbyMenu : MonoBehaviour
 
         CreatedLobby callback = LobbyCreated;
 
+        Prompt.Instance.ShowPrompt("Game is starting. Please wait...");
+
         hathoraManager.CreateLobby(region, callback);
     }
 
