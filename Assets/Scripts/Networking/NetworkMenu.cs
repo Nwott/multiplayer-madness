@@ -84,4 +84,9 @@ public class NetworkMenu : MonoBehaviour
         lobbyMenu.SetActive(false);
         mainMenu.SetActive(true);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
