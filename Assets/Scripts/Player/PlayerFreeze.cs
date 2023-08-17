@@ -59,9 +59,8 @@ public class PlayerFreeze : NetworkBehaviour
         if (clientPlayer.Frozen && IsOwner)
         {
             unfreezeCount++;
-            print(unfreezeCount+" e clicks and "+unfreezeNumber+" needed");
 
-            thermometerSlider.value = unfreezeCount / unfreezeNumber;
+            thermometerSlider.value = (float)unfreezeCount / (float)unfreezeNumber;
 
             if (unfreezeCount >= unfreezeNumber)
             {
@@ -76,6 +75,7 @@ public class PlayerFreeze : NetworkBehaviour
 
         if(IsOwner)
         {
+            thermometerSlider.value = 0;
             frozenUI.SetActive(false);
         }
     }

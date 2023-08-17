@@ -882,6 +882,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5718341626411701019}
   playerMovement: {fileID: 9044952388557898230}
   clientPlayer: {fileID: 3813397337611029621}
+  frozenUI: {fileID: 8916179976517423080}
+  thermometerSlider: {fileID: 7090226482852413831}
   unfreezeNumber: 5
   damage: 2
   damageDelay: 0.1
