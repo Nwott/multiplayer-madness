@@ -127,7 +127,8 @@ MonoBehaviour:
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
-  _networkBehaviours: []
+  _networkBehaviours:
+  - {fileID: -1283806835107826421}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -156,8 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7871972e22770449cddedaa0943d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: -2284324105518284819}
-  _networkObjectCache: {fileID: 0}
-  timeUntilDestroy: 60
+  _networkObjectCache: {fileID: -2284324105518284819}
+  timeUntilDestroy: 15
   isNetworked: 1
