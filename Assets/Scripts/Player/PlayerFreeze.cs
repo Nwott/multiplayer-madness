@@ -11,6 +11,8 @@ public class PlayerFreeze : NetworkBehaviour
     [Header("References")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private ClientPlayer clientPlayer;
+    [SerializeField] private GameObject frozenUI;
+    [SerializeField] private Slider thermometerSlider;
 
     [Header("Settings")]
     [SerializeField] private int unfreezeNumber;
@@ -45,6 +47,11 @@ public class PlayerFreeze : NetworkBehaviour
         unfreezeCount = 0;
         playerMovement.CanMove = false;
         damageTimer = 0;
+
+        if(IsOwner)
+        {
+            frozenUI.SetActive(true);
+        }
     }
 
     public void PartialUnfreeze()
@@ -53,6 +60,9 @@ public class PlayerFreeze : NetworkBehaviour
         {
             unfreezeCount++;
             print(unfreezeCount+" e clicks and "+unfreezeNumber+" needed");
+
+            thermometerSlider.value = unfreezeCount / unfreezeNumber;
+
             if (unfreezeCount >= unfreezeNumber)
             {
                 UnfreezeOnServer(clientPlayer);
@@ -63,6 +73,11 @@ public class PlayerFreeze : NetworkBehaviour
     public void Unfreeze()
     {
         playerMovement.CanMove = true;
+
+        if(IsOwner)
+        {
+            frozenUI.SetActive(false);
+        }
     }
 
     [ServerRpc]
