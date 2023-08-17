@@ -311,6 +311,8 @@ public class ClientPlayer : NetworkBehaviour
         if(IsServer)
         {
             health = MaxHealth;
+            userInterface.UpdateHealthBar(Health, MaxHealth);
+            userInterface.UpdateHealthBarOnClients(Health, MaxHealth);
         }
     }
 
