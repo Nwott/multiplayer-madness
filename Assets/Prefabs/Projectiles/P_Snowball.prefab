@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2439816537419242198}
   - component: {fileID: -291764041641786136}
   - component: {fileID: -7855314565783928932}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: P_Snowball
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6432767970490893840}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e7871972e22770449cddedaa0943d76, type: 3}
   m_Name: 
@@ -157,8 +157,8 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 450781800676019618}
   _networkObjectCache: {fileID: 450781800676019618}
-  timeUntilDestroy: 3
-  isNetworked: 0
+  timeUntilDestroy: 7
+  isNetworked: 1
 --- !u!114 &-7855314565783928932
 MonoBehaviour:
   m_ObjectHideFlags: 0

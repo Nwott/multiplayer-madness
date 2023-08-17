@@ -58,6 +58,17 @@ public class Snowball : Projectile
         }
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (!IsServer) return;
+
+        if (hit.gameObject.layer == LayerMask.NameToLayer("Environment") && !ThrownByPlayer)
+        {
+            Callback(transform.position);
+            Despawn();
+        }
+    }
+
     private void FreezeClient(ClientPlayer player)
     {
         player.Frozen = true;
