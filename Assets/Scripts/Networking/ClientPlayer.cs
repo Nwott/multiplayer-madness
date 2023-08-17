@@ -92,14 +92,20 @@ public class ClientPlayer : NetworkBehaviour
             RotatePlayer();
 
             Timer();
-
-            if(Input.GetKeyDown(KeyCode.U))
-            {
-                Death();
-            }
+            CheckIfPlayerFellThroughGround();
         }
     }
 
+    private void CheckIfPlayerFellThroughGround()
+    {
+        if(IsOwner)
+        {
+            if(transform.position.y <= -5)
+            {
+                transform.position = new Vector3(transform.position.x, 2.5f, transform.position.z);
+            }
+        }
+    }
 
     public override void OnStopClient()
     {
