@@ -67,6 +67,10 @@ public class Snowball : Projectile
             Callback(transform.position);
             Despawn();
         }
+        else if(hit.gameObject.layer == LayerMask.NameToLayer("Environment") && ThrownByPlayer)
+        {
+            Despawn();
+        }
     }
 
     private void FreezeClient(ClientPlayer player)
