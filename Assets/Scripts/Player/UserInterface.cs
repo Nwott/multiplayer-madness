@@ -91,6 +91,7 @@ public class UserInterface : NetworkBehaviour
         if (itemSO == null)
         {
             itemSO = emptyItem;
+            itemIcon.gameObject.SetActive(false);
         }
 
         // reset item icon if possible
@@ -104,6 +105,7 @@ public class UserInterface : NetworkBehaviour
 
         if(itemSO.itemIcon != null)
         {
+            itemIcon.gameObject.SetActive(true);
             itemIcon.sprite = itemSO.itemIcon;
         }
     }

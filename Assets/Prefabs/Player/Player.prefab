@@ -537,7 +537,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e95dc21325544604dbf675f6694ff939, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2145,8 +2145,8 @@ Transform:
   - {fileID: 2986149352705494985}
   - {fileID: 5359490684097473889}
   - {fileID: 86520490444086383}
-  - {fileID: 4712831106430078064}
   - {fileID: 3951205461920146281}
+  - {fileID: 4712831106430078064}
   - {fileID: 6084147048010181093}
   m_Father: {fileID: 4865602302702749260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2763,7 +2763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3398219561898522846
 RectTransform:
   m_ObjectHideFlags: 0
