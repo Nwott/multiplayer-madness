@@ -6,6 +6,7 @@ using FishNet.Object.Synchronizing;
 using FishNet.Connection;
 using UnityEngine.InputSystem;
 using FishNet.Component.Spawning;
+using FishNet;
 
 public class ClientPlayer : NetworkBehaviour
 {
@@ -124,6 +125,20 @@ public class ClientPlayer : NetworkBehaviour
     {
         pauseMenu.SetActive(!pauseMenu.activeSelf);
         Paused = !Paused;
+    }
+
+    public void LeaveGame()
+    {
+        if(IsOwner)
+        {
+            //InstanceFinder.ClientManager.StopConnection();
+            InstanceFinder.ClientManager.StopConnection();
+
+            if(IsServer)
+            {
+                InstanceFinder.ServerManager.StopConnection(false);
+            }
+        }
     }
 
     public void OnPauseChanged()
