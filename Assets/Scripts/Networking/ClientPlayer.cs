@@ -24,6 +24,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private PlayerAnimations playerAnimations;
     [SerializeField] private GameObject iceBlockGO;
+    [SerializeField] private GameObject fKey;
 
     private GameObject iceBlock;
 
@@ -93,6 +94,8 @@ public class ClientPlayer : NetworkBehaviour
 
             Timer();
             CheckIfPlayerFellThroughGround();
+
+            FKey();
         }
     }
 
@@ -262,6 +265,25 @@ public class ClientPlayer : NetworkBehaviour
         }
 
         return closestCollider;
+    }
+
+    // enable F key when player is close to item
+    private void FKey()
+    {
+        if(GetClosestItem(Physics.OverlapSphere(transform.position, itemDetectionRadius)) != null)
+        {
+            if(IsOwner && !fKey.activeSelf)
+            {
+                fKey.SetActive(true);
+            }
+        }
+        else
+        {
+            if (IsOwner && fKey.activeSelf)
+            {
+                fKey.SetActive(false);
+            }
+        }
     }
 
     private void RotatePlayer()
