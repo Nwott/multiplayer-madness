@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Fish
   description: Gain 10 health
+  itemIcon: {fileID: 21300000, guid: 98af0d23c3a0a9245996e2fb9f4d5a00, type: 3}
   throwable: 0
