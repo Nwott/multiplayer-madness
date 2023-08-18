@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using FishNet.Object;
+using FishNet.Connection;
 
 public class UserInterface : NetworkBehaviour
 {
@@ -19,6 +20,17 @@ public class UserInterface : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI txtItemName;
     [SerializeField] private TextMeshProUGUI txtItemDescription;
     [SerializeField] private ItemScriptableObject emptyItem;
+    [SerializeField] private TextMeshProUGUI txtRoomID;
+
+    public override void OnOwnershipClient(NetworkConnection prevOwner)
+    {
+        base.OnOwnershipClient(prevOwner);
+
+        if (IsOwner)
+        {
+            UpdateRoomID();
+        }
+    }
 
     private void Update()
     {
@@ -107,6 +119,20 @@ public class UserInterface : NetworkBehaviour
         {
             itemIcon.gameObject.SetActive(true);
             itemIcon.sprite = itemSO.itemIcon;
+        }
+    }
+
+    private void UpdateRoomID()
+    {
+        string roomID = PlayerPrefs.GetString("RoomID");
+
+        if(roomID != null && roomID != "")
+        {
+            txtRoomID.SetText("Room ID: " + roomID);
+        }
+        else
+        {
+            txtRoomID.SetText("");
         }
     }
 }

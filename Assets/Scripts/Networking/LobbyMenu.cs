@@ -50,6 +50,7 @@ public class LobbyMenu : MonoBehaviour
     {
         string roomID = lobbyString.Split("roomId\":\"")[1];
         roomID = roomID.Split("\"")[0];
+        PlayerPrefs.SetString("RoomID", roomID);
 
         GameSlot.ReceivedConnectionInfo callback = OnConnectionInfoReceived;
         hathoraManager.GetConnectionInfo(roomID, callback, true);

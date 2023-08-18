@@ -33,6 +33,7 @@ public class GameSlot : MonoBehaviour
 
     public void JoinGame()
     {
+        PlayerPrefs.SetString("RoomID", roomID);
         ReceivedConnectionInfo callback = LobbyMenu.OnConnectionInfoReceived;
         HathoraManager.GetConnectionInfo(RoomID, callback, false);
     }
