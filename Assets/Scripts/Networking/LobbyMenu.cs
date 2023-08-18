@@ -15,6 +15,7 @@ public class LobbyMenu : MonoBehaviour
     [SerializeField] private GameObject gameSlot;
     [SerializeField] private GameObject gameSlotList;
     [SerializeField] private TMP_InputField usernameInputField;
+    [SerializeField] private GameObject noGamesFoundTexts;
 
     private List<GameObject> gameSlots = new();
 
@@ -22,16 +23,41 @@ public class LobbyMenu : MonoBehaviour
     public delegate void ReceivedLobbies(string lobbyString);
     public delegate void ReceivedConnectionInfo(string info);
 
+    private void Update()
+    {
+        ShowText();
+    }
+
     public void ShowHostPanel()
     {
         joinPanel.SetActive(false);
         hostPanel.SetActive(true);
+        noGamesFoundTexts.SetActive(false);
     }
 
     public void ShowJoinPanel()
     {
         hostPanel.SetActive(false);
         joinPanel.SetActive(true);
+    }
+
+    // shows no game text
+    private void ShowText()
+    {
+        if(gameSlots.Count <= 0)
+        {
+            if(!noGamesFoundTexts.activeSelf && joinPanel.activeSelf)
+            {
+                noGamesFoundTexts.SetActive(true);
+            }
+        }
+        else if(gameSlots.Count > 0)
+        {
+            if(noGamesFoundTexts.activeSelf)
+            {
+                noGamesFoundTexts.SetActive(false);
+            }
+        }
     }
 
     public void HostGame()
