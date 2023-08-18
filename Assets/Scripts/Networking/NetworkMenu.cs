@@ -14,6 +14,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private TMP_InputField ipInputField;
     [SerializeField] private TMP_InputField usernameInputField;
     [SerializeField] private TMP_InputField portInputField;
+    [SerializeField] public GameObject tutorial;
 
     private void Update()
     {
@@ -74,6 +75,7 @@ public class NetworkMenu : MonoBehaviour
         devMenu.SetActive(false);
         mainMenu.SetActive(false);
         lobbyMenu.SetActive(true);
+        tutorial.SetActive(false);
 
         lobbyMenu.GetComponent<LobbyMenu>().RefreshJoinMenu();
     }
@@ -83,6 +85,15 @@ public class NetworkMenu : MonoBehaviour
         devMenu.SetActive(false);
         lobbyMenu.SetActive(false);
         mainMenu.SetActive(true);
+        tutorial.SetActive(false);
+    }
+
+    public void OpenTutorial()
+    {
+        devMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        lobbyMenu.SetActive(false);
+        tutorial.SetActive(true);
     }
 
     public void QuitGame()
