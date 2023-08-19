@@ -8,6 +8,7 @@ public class Cannon : NetworkBehaviour
     [Header("Reference")]
     [SerializeField] private GameObject cannonBarrel;
     [SerializeField] private GameObject barrelSpawnpoint;
+    [SerializeField] private AudioSource srcCannonShot;
 
     [Header("Settings")]
     [SerializeField] private float waitTime = 2f; // time between barrel active and shoot
@@ -121,6 +122,12 @@ public class Cannon : NetworkBehaviour
         {
             barrelData[i].Barrel.Shoot(barrelData[i].Target);
         }
+
+        if(IsServer)
+        {
+            srcCannonShot.Play();
+            PlayCannonSFX();
+        }
     }
 
     private void AfterShoot()
@@ -160,5 +167,13 @@ public class Cannon : NetworkBehaviour
     private void RefreshBarrelActive(GameObject barrel, bool active)
     {
         barrel.SetActive(active);
+    }
+
+    [ObserversRpc]
+    private void PlayCannonSFX()
+    {
+        if (IsServer) return;
+
+        srcCannonShot.Play();
     }
 }

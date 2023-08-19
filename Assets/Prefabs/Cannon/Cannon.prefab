@@ -54,6 +54,7 @@ MonoBehaviour:
   cannonBarrel: {fileID: 3250681477134792191, guid: 010b61abb9efbd849b23837e5c0e318c,
     type: 3}
   barrelSpawnpoint: {fileID: 5051771261758746263}
+  srcCannonShot: {fileID: -8595741400816976018}
   waitTime: 0.2
   cycleInterval: 7
   afterShootTime: 2
@@ -100,9 +101,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 41fd86012fe6894419e44ce71772315f, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -44,7 +44,7 @@ public class GameManager : NetworkBehaviour
     {
         if (!IsServer) return;
 
-        if(players.Count > 0)
+        if (players.Count > 0)
         {
             UpdateTimer();
         }
@@ -54,7 +54,7 @@ public class GameManager : NetworkBehaviour
     {
         updateTimer += Time.deltaTime;
 
-        if(updateTimer >= updateInterval)
+        if (updateTimer >= updateInterval)
         {
             updateTimer = 0;
             UpdateLeaderboard();
@@ -68,7 +68,7 @@ public class GameManager : NetworkBehaviour
 
         playersSortedByTime.Clear();
 
-        foreach(ClientPlayer player in players.OrderByDescending(p => p.LongestTime))
+        foreach (ClientPlayer player in players.OrderByDescending(p => p.LongestTime))
         {
             index++;
 
@@ -97,7 +97,7 @@ public class GameManager : NetworkBehaviour
         overheadScript.InitializeOnClients(player.Username);
         overheadScript.ClientPlayer = player;
 
-        for(int i = 0; i < players.Count; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             players[i].GetComponentInChildren<OverheadUI>().InitializeOnClients(players[i].Username);
         }
@@ -205,9 +205,9 @@ public class GameManager : NetworkBehaviour
     {
         items.Add(item);
 
-        if(items.Count > maxItems)
+        if (items.Count > maxItems)
         {
-            for(int i = 0; i < items.Count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
                 if (items[i] == null)
                 {
