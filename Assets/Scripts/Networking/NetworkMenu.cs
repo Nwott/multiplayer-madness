@@ -100,4 +100,9 @@ public class NetworkMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void Discord()
+    {
+        Application.OpenURL("https://discord.gg/45mxF78HwP");
+    }
 }
