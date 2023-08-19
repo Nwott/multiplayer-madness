@@ -13,6 +13,7 @@ public class PlayerFreeze : NetworkBehaviour
     [SerializeField] private ClientPlayer clientPlayer;
     [SerializeField] private GameObject frozenUI;
     [SerializeField] private Slider thermometerSlider;
+    [SerializeField] private AudioSource srcDamageTaken;
 
     [Header("Settings")]
     [SerializeField] private int unfreezeNumber;
@@ -38,6 +39,7 @@ public class PlayerFreeze : NetworkBehaviour
             {
                 damageTimer = 0;
                 clientPlayer.ChangeHealth(-damage);
+                srcDamageTaken.Play();
             }
         }
     }

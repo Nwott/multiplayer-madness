@@ -36,13 +36,12 @@ public class PlayerMovement : NetworkBehaviour
             if(canMove)
             {
                 controller.Move(new Vector3(hInput.x * moveSpeed * Time.deltaTime, 0, hInput.y * moveSpeed * Time.deltaTime));
+                PlaySFX();
             }
 
             controller.Move(Vector3.down * gravity * Time.deltaTime);
 
             SendAnimationStatus();
-
-            PlaySFX();
         }
     }
 
