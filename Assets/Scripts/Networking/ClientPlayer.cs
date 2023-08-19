@@ -27,6 +27,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private GameObject fKey;
     [SerializeField] private AudioSource srcFishEat;
     [SerializeField] private AudioSource srcDead;
+    [SerializeField] private AudioSource srcThrow;
 
     private GameObject iceBlock;
 
@@ -212,9 +213,13 @@ public class ClientPlayer : NetworkBehaviour
     {
         if(IsOwner && !frozen)
         {
-            if(item.ItemSO.itemName == "Fish")
+            if (item.ItemSO.itemName == "Fish")
             {
                 srcFishEat.Play();
+            }
+            else if (item.ItemSO.itemName == "Snowball")
+            {
+                srcThrow.Play();
             }
 
             item.Firepoint = firepoint.transform;
