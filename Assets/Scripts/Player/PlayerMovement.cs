@@ -8,6 +8,7 @@ public class PlayerMovement : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private ClientPlayer clientPlayer;
+    [SerializeField] private AudioSource srcWalking;
 
     [Header("Settings")]
     [SerializeField] private float moveSpeed = 5f;
@@ -40,12 +41,32 @@ public class PlayerMovement : NetworkBehaviour
             controller.Move(Vector3.down * gravity * Time.deltaTime);
 
             SendAnimationStatus();
+
+            PlaySFX();
         }
     }
 
     public void ReceiveInputs(Vector2 input)
     {
         hInput = input;
+    }
+
+    private void PlaySFX()
+    {
+        if(hInput != Vector2.zero)
+        {
+            if(!srcWalking.isPlaying)
+            {
+                srcWalking.Play();
+            }
+        }
+        else
+        {
+            if(srcWalking.isPlaying)
+            {
+                srcWalking.Stop();
+            }
+        }
     }
 
     private void SendAnimationStatus()
