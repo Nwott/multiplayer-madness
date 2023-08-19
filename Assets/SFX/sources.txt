@@ -1,0 +1,6 @@
+cannon_fire.ogg - https://opengameart.org/content/cannon-fire
+snowball_hit.mp3 - https://opengameart.org/content/9-wet-snow-steps
+damage_taken.wav - https://opengameart.org/content/ice-spells
+fish_eat.ogg - https://opengameart.org/content/7-eating-crunches
+walking - https://opengameart.org/content/4-dry-snow-steps
+dead - https://opengameart.org/content/penguin-sounds
