@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using UnityEngine.VFX;
 
 public class Projectile : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] protected CharacterController controller;
     [SerializeField] private DestroyAfterTime destroyScript;
+    [SerializeField] protected GameObject vfxOnHit;
 
     [Header("Settings")]
     [SerializeField] protected float speed = 15;
@@ -72,8 +74,14 @@ public class Projectile : NetworkBehaviour
         if (Vector3.Distance(transform.position, target) <= despawnRange)
         {
             callback(transform.position);
+            PlaySnowballHit();
             Despawn();
         }
+    }
+
+    protected void PlaySnowballHit()
+    {
+        GameManager.Instance.SpawnObject(vfxOnHit, transform.position, Quaternion.identity, null);
     }
 
     protected void MoveInDirection(Vector3 direction)

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using FishNet.Connection;
+using UnityEngine.VFX;
 
 public class Snowball : Projectile
 {
-    [Header("Snowball References")]
-    [SerializeField] private AudioSource srcSnowballHit;
-
     [Header("Snowball Settings")]
     [SerializeField] private float detectionRange = 1f; // range to detect player
 
@@ -82,29 +80,5 @@ public class Snowball : Projectile
     private void FreezeClient(ClientPlayer player)
     {
         player.Frozen = true;
-    }
-
-    private void PlaySnowballHit()
-    {
-        if(IsServer)
-        {
-            //PlaySnowballHitServer();
-        }
-    }
-
-    [ServerRpc]
-    private void PlaySnowballHitServer()
-    {
-        srcSnowballHit.Play();
-
-        PlaySnowballHitClients();
-    }
-
-    [ObserversRpc]
-    private void PlaySnowballHitClients()
-    {
-        if (IsServer) return;
-
-        srcSnowballHit.Play();
     }
 }
