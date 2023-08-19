@@ -26,6 +26,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private GameObject iceBlockGO;
     [SerializeField] private GameObject fKey;
     [SerializeField] private AudioSource srcFishEat;
+    [SerializeField] private AudioSource srcDead;
 
     private GameObject iceBlock;
 
@@ -175,6 +176,11 @@ public class ClientPlayer : NetworkBehaviour
     [ObserversRpc]
     private void ResetTime()
     {
+        if(IsOwner)
+        {
+            srcDead.Play();
+        }
+
         if(IsOwner)
         {
             currentTime = 0;
