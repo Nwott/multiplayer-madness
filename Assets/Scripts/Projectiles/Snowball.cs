@@ -6,6 +6,9 @@ using FishNet.Connection;
 
 public class Snowball : Projectile
 {
+    [Header("Snowball References")]
+    [SerializeField] private AudioSource srcSnowballHit;
+
     [Header("Snowball Settings")]
     [SerializeField] private float detectionRange = 1f; // range to detect player
 
@@ -53,6 +56,7 @@ public class Snowball : Projectile
         if (other.CompareTag("Player") && other != Player)
         {
             // player in range
+            PlaySnowballHit();
             FreezePlayer(other.GetComponent<ClientPlayer>());
             Despawn();
         }
@@ -65,10 +69,12 @@ public class Snowball : Projectile
         if (hit.gameObject.layer == LayerMask.NameToLayer("Environment") && !ThrownByPlayer)
         {
             Callback(transform.position);
+            PlaySnowballHit();
             Despawn();
         }
         else if(hit.gameObject.layer == LayerMask.NameToLayer("Environment") && ThrownByPlayer)
         {
+            PlaySnowballHit();
             Despawn();
         }
     }
@@ -76,5 +82,29 @@ public class Snowball : Projectile
     private void FreezeClient(ClientPlayer player)
     {
         player.Frozen = true;
+    }
+
+    private void PlaySnowballHit()
+    {
+        if(IsServer)
+        {
+            //PlaySnowballHitServer();
+        }
+    }
+
+    [ServerRpc]
+    private void PlaySnowballHitServer()
+    {
+        srcSnowballHit.Play();
+
+        PlaySnowballHitClients();
+    }
+
+    [ObserversRpc]
+    private void PlaySnowballHitClients()
+    {
+        if (IsServer) return;
+
+        srcSnowballHit.Play();
     }
 }

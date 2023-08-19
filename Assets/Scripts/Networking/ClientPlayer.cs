@@ -25,6 +25,7 @@ public class ClientPlayer : NetworkBehaviour
     [SerializeField] private PlayerAnimations playerAnimations;
     [SerializeField] private GameObject iceBlockGO;
     [SerializeField] private GameObject fKey;
+    [SerializeField] private AudioSource srcFishEat;
 
     private GameObject iceBlock;
 
@@ -205,6 +206,11 @@ public class ClientPlayer : NetworkBehaviour
     {
         if(IsOwner && !frozen)
         {
+            if(item.ItemSO.itemName == "Fish")
+            {
+                srcFishEat.Play();
+            }
+
             item.Firepoint = firepoint.transform;
             item.Perform();
             userInterface.UpdateItemSlot(null);
